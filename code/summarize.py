@@ -30,7 +30,7 @@ def boot(x, n=10000, seed=0):
 def main(ev, pub):
     rows = {}
     for d in sorted(glob.glob(os.path.join(ev, "*"))) + sorted(glob.glob(os.path.join(pub, "*"))):
-        if not os.path.isdir(os.path.join(d, "parts")):
+        if not glob.glob(os.path.join(d, "parts", "*", "scores.json")):    # no finished job yet: no merged.json
             continue
         name = ("pub:" if d.startswith(pub) else "") + os.path.basename(d)
         m = M.merge(d) if not d.startswith(pub) else json.load(open(os.path.join(d, "merged.json")))

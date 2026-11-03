@@ -42,8 +42,9 @@ Key observations so far:
   changes nothing (paired difference −0.2, 95 % CI [−2.2, +1.8]).
 - GSM8K is the open case: p50c in thinking mode (67.1 %) is about 10 points above the base model in non-thinking mode
   (56.9 %). E2–E5 test whether other ways of stopping the loop also recover that.
-- E2 (temperature 1.0, model-card thinking setting) so far barely reduces looping on the base model (84.5 % cut on
-  the first 100 problems).
+- E2 (temperature 1.0, model-card thinking setting), first 100 problems: the base model goes from 6.2 % (published
+  think35, same problems) to 15.2 %, but 84.5 % of its answers still hit the cap; p50c's published score on the same
+  problems is 45.0 %.
 
 Still running (see [`queues/stage2b.txt`](queues/stage2b.txt)):
 
