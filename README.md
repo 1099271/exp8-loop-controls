@@ -40,7 +40,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | E3 (partial) | base | think35_rp110 | 20.8 | 77.8 | 27,717 | – | 100 |
 | E3 (partial) | p50c | think35_rp110 | 41.5 | 46.8 | 23,829 | – | 100 |
 | E2 (partial) | p50c | think35_t10 | 25.8 [18.2, 33.8] | 70.0 | 27,538 | – | 100 |
-| E2 (partial) | base | think35_t10 | 15.2 [9.8, 21.2] | 84.5 | 29,994 | – | 100 |
+| E2 (partial) | base | think35_t10 | 16.6 [12.6, 21.0] | 82.5 | 29,718 | – | 200 |
 
 Key observations so far:
 

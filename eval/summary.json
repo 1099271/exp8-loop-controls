@@ -72,15 +72,15 @@
   ]
  },
  "base__think35_t10|math500": {
-  "acc": 0.1525,
-  "cut_share": 0.845,
-  "mean_tokens": 29994.38,
-  "problems": 100,
+  "acc": 0.16625,
+  "cut_share": 0.825,
+  "mean_tokens": 29718.4525,
+  "problems": 200,
   "complete": false,
-  "acc_lenient": 0.31,
+  "acc_lenient": 0.33,
   "ci": [
-   0.0975,
-   0.2125
+   0.12625,
+   0.21
   ]
  },
  "p50c__nothink35|math500": {
