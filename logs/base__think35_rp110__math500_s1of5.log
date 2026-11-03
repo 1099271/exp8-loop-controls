@@ -1,0 +1,6 @@
+W1104 00:49:27.195000 242857 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1104 00:49:27.196000 242857 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1104 00:49:27.196000 242857 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+(MainProcess pid=242857) INFO 11-04 00:49:31 [startup.py:96] non-default args: {'dtype': 'bfloat16', 'max_model_len': 34816, 'gpu_memory_utilization': 0.85, 'disable_log_stats': True, 'language_model_only': True, 'model': '/home/www/workspace/mathedit/models/base'}
+(MainProcess pid=242857) INFO 11-04 00:49:31 [model.py:744] Resolved architecture: Qwen3_5ForConditionalGeneration
+(MainProcess pid=242857) INFO 11-04 00:49:31 [model.py:2170] Using max model len 34816

@@ -156,15 +156,15 @@
   ]
  },
  "p50c__think35_t10|math500": {
-  "acc": 0.2575,
-  "cut_share": 0.7,
-  "mean_tokens": 27538.325,
-  "problems": 100,
+  "acc": 0.27125,
+  "cut_share": 0.67875,
+  "mean_tokens": 27307.3175,
+  "problems": 200,
   "complete": false,
-  "acc_lenient": 0.3625,
+  "acc_lenient": 0.385,
   "ci": [
-   0.1825,
-   0.3375
+   0.21625,
+   0.3275
   ]
  },
  "rand0__think35|math500": {
