@@ -21,3 +21,5 @@
 skip /home/www/workspace/mathedit/eval/rand0__think35/parts/math500_s0of5
 skip /home/www/workspace/mathedit/eval/base__think35_t10/parts/math500_s0of5
 2026-11-03 18:25:16 start p50c think35_t10 math500 0/5
+2026-11-03 19:28:31 end rc=0 3795s p50c think35_t10 math500 0/5
+2026-11-03 19:28:31 start base think35_rp110 math500 0/5
