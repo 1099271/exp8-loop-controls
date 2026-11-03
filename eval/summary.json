@@ -59,6 +59,18 @@
    0.105
   ]
  },
+ "base__think35_rp110|math500": {
+  "acc": 0.2075,
+  "cut_share": 0.7775,
+  "mean_tokens": 27717.07,
+  "problems": 100,
+  "complete": false,
+  "acc_lenient": 0.3125,
+  "ci": [
+   0.145,
+   0.2775
+  ]
+ },
  "base__think35_t10|math500": {
   "acc": 0.1525,
   "cut_share": 0.845,
@@ -129,6 +141,18 @@
   "ci": [
    0.32,
    0.545
+  ]
+ },
+ "p50c__think35_rp110|math500": {
+  "acc": 0.415,
+  "cut_share": 0.4675,
+  "mean_tokens": 23829.32,
+  "problems": 100,
+  "complete": false,
+  "acc_lenient": 0.5125,
+  "ci": [
+   0.34,
+   0.4925
   ]
  },
  "p50c__think35_t10|math500": {

@@ -37,6 +37,8 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
 | E5 (partial) | rand0 | think35 | 20.2 [14.5, 26.2] | 77.8 | 27,419 | – | 100 |
+| E3 (partial) | base | think35_rp110 | 20.8 | 77.8 | 27,717 | – | 100 |
+| E3 (partial) | p50c | think35_rp110 | 41.5 | 46.8 | 23,829 | – | 100 |
 | E2 (partial) | p50c | think35_t10 | 25.8 [18.2, 33.8] | 70.0 | 27,538 | – | 100 |
 | E2 (partial) | base | think35_t10 | 15.2 [9.8, 21.2] | 84.5 | 29,994 | – | 100 |
 
@@ -61,6 +63,9 @@ Key observations so far:
   same problems (paired −19.2 [−25.8, −13.0] vs published). The edit's loop-breaking depends on the sampling it was
   found with (Astra's practice passes used the evaluation's temperature 0.6). At 1.0 it is still +10.5 [+5.8, +15.5]
   above the base model at 1.0 (15.2 %).
+- **E3 (first 100 problems):** repetition_penalty 1.1 does not stop the base model's loops (cut 77.8 %, 20.8 %;
+  +14.5 [+9.5, +20.0] over published base, p50c published is +24.2 [+18.8, +30.0] above it). On p50c it costs little
+  (41.5 %, −3.5 [−8.8, +1.8] vs published). Per the pre-set rule (amendment 1), E3b (1.05) is therefore run.
 - **E5 (first 100 problems):** the random-direction control (same 64 columns, same norm, rank-1) scores 20.2 %
   (cut 77.8 %): above the base model on the same problems (6.2 %, +14.0 [+10.0, +18.2]) but far below p50c
   (45.0 % published / 49.0 % akhaliq; p50c − rand0 = +24.8 [+19.0, +30.5]). So far the direction matters for how
@@ -71,7 +76,7 @@ Key observations so far:
   think35, same problems) to 15.2 %, but 84.5 % of its answers still hit the cap; p50c's published score on the same
   problems is 45.0 %.
 
-Still running (see [`queues/stage2c.txt`](queues/stage2c.txt); order changed by amendment 1 in `PLAN.md`: E5 first in each round, E3b conditional on E3, E4 last):
+Still running (see [`queues/stage2e.txt`](queues/stage2e.txt); order changed by amendment 1 in `PLAN.md`: E5 first in each round, E3b conditional on E3, E4 last):
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
