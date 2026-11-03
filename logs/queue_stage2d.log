@@ -1,0 +1,23 @@
+2026-11-03 17:48:23 start base nothink35_32k gsm8k 0/5
+2026-11-03 17:53:01 end rc=0 278s base nothink35_32k gsm8k 0/5
+2026-11-03 17:53:01 start base nothink35_32k gsm8k 1/5
+2026-11-03 17:56:45 end rc=0 224s base nothink35_32k gsm8k 1/5
+2026-11-03 17:56:45 start base nothink35_32k gsm8k 2/5
+2026-11-03 18:01:40 end rc=0 295s base nothink35_32k gsm8k 2/5
+2026-11-03 18:01:40 start base nothink35_32k gsm8k 3/5
+2026-11-03 18:05:46 end rc=0 246s base nothink35_32k gsm8k 3/5
+2026-11-03 18:05:46 start base nothink35_32k gsm8k 4/5
+2026-11-03 18:10:16 end rc=0 270s base nothink35_32k gsm8k 4/5
+2026-11-03 18:10:16 start p50c nothink35_32k gsm8k 0/5
+2026-11-03 18:13:00 end rc=0 164s p50c nothink35_32k gsm8k 0/5
+2026-11-03 18:13:00 start p50c nothink35_32k gsm8k 1/5
+2026-11-03 18:16:31 end rc=0 211s p50c nothink35_32k gsm8k 1/5
+2026-11-03 18:16:31 start p50c nothink35_32k gsm8k 2/5
+2026-11-03 18:20:03 end rc=0 212s p50c nothink35_32k gsm8k 2/5
+2026-11-03 18:20:03 start p50c nothink35_32k gsm8k 3/5
+2026-11-03 18:22:37 end rc=0 154s p50c nothink35_32k gsm8k 3/5
+2026-11-03 18:22:37 start p50c nothink35_32k gsm8k 4/5
+2026-11-03 18:25:16 end rc=0 159s p50c nothink35_32k gsm8k 4/5
+skip /home/www/workspace/mathedit/eval/rand0__think35/parts/math500_s0of5
+skip /home/www/workspace/mathedit/eval/base__think35_t10/parts/math500_s0of5
+2026-11-03 18:25:16 start p50c think35_t10 math500 0/5

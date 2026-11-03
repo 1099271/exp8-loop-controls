@@ -35,6 +35,8 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | ref: akhaliq re-run | p50c (HF, same sha256) | think35, seed 0, H200 | 51.0 (paired vs pub +2.9 [+1.0, +4.8]) | 31.6 | 21,704 | – | 500 |
 | **E1b** | base | nothink35_32k | **49.9 [46.5, 53.3]** | 11.7 | 7,697 | – | 500 |
 | **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
+| E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
+| E5 (partial) | rand0 | think35 | 20.2 [14.5, 26.2] | 77.8 | 27,419 | – | 100 |
 | E2 (partial) | base | think35_t10 | 15.2 [9.8, 21.2] | 84.5 | 29,994 | – | 100 |
 
 Key observations so far:
@@ -50,7 +52,14 @@ Key observations so far:
   non-thinking 32k = −1.8 [−4.4, +0.9]; akhaliq's p50c re-run minus it = +1.1 [−1.6, +3.9]. The 3.6-6.5 point gap in
   E1 was the 8,192-token cap, not the edit. In non-thinking mode the edit does stop the remaining loops (cut 11.7 %
   → 0.4 %) but does not change accuracy (+0.3 [−1.9, +2.5]).
-- GSM8K is the open case: p50c in thinking mode (67.1 %) is about 10 points above the base model in non-thinking mode
+- **GSM8K stays open after E1b** (post-hoc supplement, amendment 2): the 32k budget does not move base non-thinking
+  (56.9 → 56.9), so p50c in thinking mode is **+10.2 [+8.1, +12.3]** above it (paired, 1,319 problems). On GSM8K a
+  thinking mode that terminates is worth something that non-thinking mode does not give.
+- **E5 (first 100 problems):** the random-direction control (same 64 columns, same norm, rank-1) scores 20.2 %
+  (cut 77.8 %): above the base model on the same problems (6.2 %, +14.0 [+10.0, +18.2]) but far below p50c
+  (45.0 % published / 49.0 % akhaliq; p50c − rand0 = +24.8 [+19.0, +30.5]). So far the direction matters for how
+  well the loop is broken.
+- Earlier note, GSM8K: p50c in thinking mode (67.1 %) is about 10 points above the base model in non-thinking mode
   (56.9 %). E2–E5 test whether other ways of stopping the loop also recover that.
 - E2 (temperature 1.0, model-card thinking setting), first 100 problems: the base model goes from 6.2 % (published
   think35, same problems) to 15.2 %, but 84.5 % of its answers still hit the cap; p50c's published score on the same

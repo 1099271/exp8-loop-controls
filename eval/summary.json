@@ -35,6 +35,18 @@
    0.533
   ]
  },
+ "base__nothink35_32k|gsm8k": {
+  "acc": 0.5693707354056103,
+  "cut_share": 0.01288855193328279,
+  "mean_tokens": 1566.9078847611827,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": 0.5701288855193328,
+  "ci": [
+   0.5462471569370735,
+   0.5917361637604246
+  ]
+ },
  "base__think35|math500": {
   "acc": 0.05,
   "cut_share": 0.955,
@@ -95,6 +107,18 @@
    0.5345
   ]
  },
+ "p50c__nothink35_32k|gsm8k": {
+  "acc": 0.5485216072782411,
+  "cut_share": 0.000758150113722517,
+  "mean_tokens": 1357.5257771038666,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": 0.5489006823351024,
+  "ci": [
+   0.5257771038665656,
+   0.5712661106899166
+  ]
+ },
  "p50c__think35|math500": {
   "acc": 0.43,
   "cut_share": 0.34,
@@ -105,6 +129,18 @@
   "ci": [
    0.32,
    0.545
+  ]
+ },
+ "rand0__think35|math500": {
+  "acc": 0.2025,
+  "cut_share": 0.7775,
+  "mean_tokens": 27419.015,
+  "problems": 100,
+  "complete": false,
+  "acc_lenient": 0.315,
+  "ci": [
+   0.145,
+   0.2625
   ]
  },
  "pub:p10c|math500": {

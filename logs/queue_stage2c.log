@@ -16,3 +16,7 @@ skip /home/www/workspace/mathedit/eval/base__nothink35_32k/parts/math500_s2of5
 2026-11-03 16:32:12 start p50c nothink35_32k math500 4/5
 2026-11-03 16:43:07 end rc=0 655s p50c nothink35_32k math500 4/5
 2026-11-03 16:43:07 start rand0 think35 math500 0/5
+2026-11-03 17:48:07 end rc=0 3900s rand0 think35 math500 0/5
+skip /home/www/workspace/mathedit/eval/base__think35_t10/parts/math500_s0of5
+2026-11-03 17:48:07 start p50c think35_t10 math500 0/5
+2026-11-03 17:48:23 swapped to stage2d

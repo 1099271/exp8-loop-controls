@@ -1,0 +1,49 @@
+{
+ "_job": {
+  "protocol": "nothink35_32k",
+  "ckpt": "/home/www/workspace/mathedit/models/p50c",
+  "ckpt_mtime": 1793673821.25541,
+  "shard": "2/5"
+ },
+ "gsm8k": {
+  "acc": 0.5284090909090909,
+  "n_problems": 264,
+  "samples": 2,
+  "cut_share": 0.001893939393939394,
+  "mean_tokens": 1407.6344696969697,
+  "s": 166,
+  "ok": 279,
+  "total": 528,
+  "cut": 1,
+  "tokens_sum": 743231,
+  "shard": "2/5",
+  "no_answer_finished": 0,
+  "ok_lenient": 279
+ },
+ "_protocol": {
+  "name": "nothink35_32k",
+  "sampling": {
+   "temperature": 0.7,
+   "top_p": 0.8,
+   "top_k": 20,
+   "presence_penalty": 1.5,
+   "max_tokens": 32768,
+   "seed": 0
+  },
+  "samples": {
+   "aime24": 16,
+   "aime25": 16,
+   "amc23": 16,
+   "math500": 4,
+   "minerva": 4,
+   "olympiad": 4,
+   "gsm8k": 2,
+   "mmlupro1k": 1,
+   "gpqa": 4,
+   "ifeval": 2
+  },
+  "thinking": false,
+  "prompt": "Please reason step by step, and put your final answer within \\boxed{}.",
+  "ckpt": "/home/www/workspace/mathedit/models/p50c"
+ }
+}

@@ -6,5 +6,13 @@
   "problems": 500,
   "complete": true,
   "acc_lenient": 0.5015
+ },
+ "gsm8k": {
+  "acc": 0.5485216072782411,
+  "cut_share": 0.000758150113722517,
+  "mean_tokens": 1357.5257771038666,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": 0.5489006823351024
  }
 }
