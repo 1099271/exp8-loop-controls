@@ -1,0 +1,3 @@
+{"name": "model.language_model.layers.15.mlp.down_proj.weight", "p50c_norm": 1.748882845833097, "control_norm": 1.7489072995495876, "control_s2_over_s1": 0.0006348853254816153, "cos_r_u": 2.6020852139652106e-17, "outside_columns_changed": 0}
+{"name": "model.language_model.layers.19.mlp.down_proj.weight", "p50c_norm": 1.3987571638936862, "control_norm": 1.3987462539791728, "control_s2_over_s1": 0.0008025151460018454, "cos_r_u": 2.42861286636753e-17, "outside_columns_changed": 0}
+-> models/rand0

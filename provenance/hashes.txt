@@ -1,0 +1,16 @@
+# sha256 of model weights (models/ is not committed; rebuild with apply_edit.py / code/make_random_control.py)
+04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696  models/base/model.safetensors-00001-of-00001.safetensors
+fd1e42acdd118ac1b300d37500fd2885e75f5a09de3a33010d802bf7f737b553  models/p50c/model.safetensors-00001-of-00001.safetensors
+958189201e9f799a118cc4d11d53e87ce0e7472f557a32a9b9044d6591f44125  models/rand0/model.safetensors-00001-of-00001.safetensors
+# benchmark files
+abbe388875dc4229798f1c0e6c3645a4b9ccc262f001d16af463862829669bad  bench/aime24.jsonl
+ea8a198b98f5e92cca18a30b722fedff9147b8353c64756a6b1caebc10430a0e  bench/aime25.jsonl
+2810286c33eb22f21c12c4172e4000a7d721b0fbea0509ab95b0019a3c7b109e  bench/amc23.jsonl
+12a62c6c5a0322e5df5e92c63814144598f5632a41b1834c4fdd9b2342cac75d  bench/gsm8k.jsonl
+0baf4950c69ab971f1b45437b965927e5a2a8fda0d2c884c408c9b9c087fca84  bench/math500.jsonl
+d986ae2cc5326f107d72a06569b73924f5b054ad1798ec943c41dccaba0b15ea  bench/minerva.jsonl
+2be0c2ec7c35d40a85a415b1829c352e0fa37a6ee6c9766f037618ac98b3e139  bench/olympiad.jsonl
+# source repo
+RikiyaT/lm_understand-logs @ 4d09ba6d6a7e891dd8063974dfe81b3d78e3494f
+# base model
+Qwen/Qwen3.5-0.8B @ 2fc06364715b967f1860aea9cf38778875588b17

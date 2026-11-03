@@ -1,0 +1,2 @@
+base think35 math500 0/10
+p50c think35 math500 0/10

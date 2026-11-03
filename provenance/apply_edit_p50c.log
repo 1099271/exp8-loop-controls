@@ -1,0 +1,3 @@
+model.language_model.layers.15.mlp.down_proj.weight: rebuilt (sparse, 65,260 entries changed), hash OK
+model.language_model.layers.19.mlp.down_proj.weight: rebuilt (sparse, 64,928 entries changed), hash OK
+2 tensors -> models/p50c/model.safetensors-00001-of-00001.safetensors

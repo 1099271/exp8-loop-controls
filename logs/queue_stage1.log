@@ -1,0 +1,5 @@
+2026-11-03 11:31:11 start base think35 math500 0/10
+2026-11-03 12:10:01 end rc=0 2330s base think35 math500 0/10
+2026-11-03 12:10:01 start p50c think35 math500 0/10
+2026-11-03 12:35:35 end rc=0 1534s p50c think35 math500 0/10
+2026-11-03 12:35:35 queue done queues/stage1.txt

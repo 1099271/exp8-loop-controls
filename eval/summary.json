@@ -1,0 +1,170 @@
+{
+ "base__nothink35|math500": {
+  "acc": 0.4455,
+  "cut_share": 0.3045,
+  "mean_tokens": 3660.77,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": 0.46,
+  "ci": [
+   0.412,
+   0.481
+  ]
+ },
+ "base__nothink35|gsm8k": {
+  "acc": 0.5693707354056103,
+  "cut_share": 0.045489006823351025,
+  "mean_tokens": 1172.7115238817287,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": 0.5727824109173616,
+  "ci": [
+   0.5470053070507961,
+   0.5917361637604246
+  ]
+ },
+ "base__think35|math500": {
+  "acc": 0.05,
+  "cut_share": 0.955,
+  "mean_tokens": 31463.35,
+  "problems": 50,
+  "complete": false,
+  "acc_lenient": 0.2,
+  "ci": [
+   0.01,
+   0.105
+  ]
+ },
+ "p50c__nothink35|math500": {
+  "acc": 0.443,
+  "cut_share": 0.3205,
+  "mean_tokens": 3835.89,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": 0.4645,
+  "ci": [
+   0.409,
+   0.477
+  ]
+ },
+ "p50c__nothink35|gsm8k": {
+  "acc": 0.543972706595906,
+  "cut_share": 0.0401819560272934,
+  "mean_tokens": 1197.9783927217588,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": 0.5458680818802123,
+  "ci": [
+   0.521986353297953,
+   0.5663381349507203
+  ]
+ },
+ "p50c__think35|math500": {
+  "acc": 0.43,
+  "cut_share": 0.34,
+  "mean_tokens": 23563.885,
+  "problems": 50,
+  "complete": false,
+  "acc_lenient": 0.51,
+  "ci": [
+   0.32,
+   0.545
+  ]
+ },
+ "pub:p10c|math500": {
+  "acc": 0.1235,
+  "cut_share": 0.8725,
+  "mean_tokens": 30084.0215,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.1025,
+   0.145
+  ]
+ },
+ "pub:p10c|gsm8k": {
+  "acc": 0.2573919636087945,
+  "cut_share": 0.7282031842304776,
+  "mean_tokens": 26624.77179681577,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.23843821076573163,
+   0.27634571645185746
+  ]
+ },
+ "pub:p25c|math500": {
+  "acc": 0.141,
+  "cut_share": 0.8635,
+  "mean_tokens": 29658.5365,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.118,
+   0.1655
+  ]
+ },
+ "pub:p25c|gsm8k": {
+  "acc": 0.2505686125852919,
+  "cut_share": 0.7490523123578469,
+  "mean_tokens": 26782.00871872631,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.23161485974222895,
+   0.2699014404852161
+  ]
+ },
+ "pub:p50c|math500": {
+  "acc": 0.481,
+  "cut_share": 0.3305,
+  "mean_tokens": 22037.1475,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.443,
+   0.5185
+  ]
+ },
+ "pub:p50c|gsm8k": {
+  "acc": 0.6709628506444276,
+  "cut_share": 0.07240333586050038,
+  "mean_tokens": 11993.395375284306,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.6482183472327521,
+   0.692958680818802
+  ]
+ },
+ "pub:unedited|math500": {
+  "acc": 0.079,
+  "cut_share": 0.93,
+  "mean_tokens": 30868.4345,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.0605,
+   0.0985
+  ]
+ },
+ "pub:unedited|gsm8k": {
+  "acc": 0.13836239575435935,
+  "cut_share": 0.8749052312357847,
+  "mean_tokens": 29288.653904473085,
+  "problems": 1319,
+  "complete": true,
+  "acc_lenient": null,
+  "ci": [
+   0.12319939347990902,
+   0.1535253980288097
+  ]
+ }
+}
