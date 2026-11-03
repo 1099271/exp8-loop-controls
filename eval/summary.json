@@ -23,6 +23,18 @@
    0.5917361637604246
   ]
  },
+ "base__nothink35_32k|math500": {
+  "acc": 0.4985,
+  "cut_share": 0.117,
+  "mean_tokens": 7696.77,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": 0.5045,
+  "ci": [
+   0.4645,
+   0.533
+  ]
+ },
  "base__think35|math500": {
   "acc": 0.05,
   "cut_share": 0.955,
@@ -69,6 +81,18 @@
   "ci": [
    0.521986353297953,
    0.5663381349507203
+  ]
+ },
+ "p50c__nothink35_32k|math500": {
+  "acc": 0.5015,
+  "cut_share": 0.0035,
+  "mean_tokens": 6218.915,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": 0.5015,
+  "ci": [
+   0.469,
+   0.5345
   ]
  },
  "p50c__think35|math500": {

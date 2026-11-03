@@ -33,6 +33,8 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E1** | base | nothink35 | **44.5 [41.2, 48.1]** | 30.4 | 3,661 | **56.9 [54.7, 59.2]** | 500 / 1319 |
 | **E1** | p50c | nothink35 | **44.3 [40.9, 47.7]** | 32.0 | 3,836 | **54.4 [52.2, 56.6]** | 500 / 1319 |
 | ref: akhaliq re-run | p50c (HF, same sha256) | think35, seed 0, H200 | 51.0 (paired vs pub +2.9 [+1.0, +4.8]) | 31.6 | 21,704 | – | 500 |
+| **E1b** | base | nothink35_32k | **49.9 [46.5, 53.3]** | 11.7 | 7,697 | – | 500 |
+| **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
 | E2 (partial) | base | think35_t10 | 15.2 [9.8, 21.2] | 84.5 | 29,994 | – | 100 |
 
 Key observations so far:
@@ -43,6 +45,11 @@ Key observations so far:
   akhaliq's independent re-run of the same weights; that +2.9 gap with identical weights, protocol and seed is the
   run-to-run variance from hardware and batching). In non-thinking mode the edit
   changes nothing (paired difference −0.2, 95 % CI [−2.2, +1.8]).
+- **E1b:** with the same 32,768-token budget as the thinking runs, the *unedited* model in non-thinking mode scores
+  **49.9 %**, inside p50c's thinking range (48.1-51.0). Paired over 500 problems: published p50c minus base
+  non-thinking 32k = −1.8 [−4.4, +0.9]; akhaliq's p50c re-run minus it = +1.1 [−1.6, +3.9]. The 3.6-6.5 point gap in
+  E1 was the 8,192-token cap, not the edit. In non-thinking mode the edit does stop the remaining loops (cut 11.7 %
+  → 0.4 %) but does not change accuracy (+0.3 [−1.9, +2.5]).
 - GSM8K is the open case: p50c in thinking mode (67.1 %) is about 10 points above the base model in non-thinking mode
   (56.9 %). E2–E5 test whether other ways of stopping the loop also recover that.
 - E2 (temperature 1.0, model-card thinking setting), first 100 problems: the base model goes from 6.2 % (published
@@ -53,7 +60,6 @@ Still running (see [`queues/stage2c.txt`](queues/stage2c.txt); order changed by 
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
-| E1b | base, p50c | thinking off, max 32,768 tokens (same budget as thinking runs) |
 | E2 | base, p50c | temperature 1.0 |
 | E3 / E3b | base, p50c | repetition_penalty 1.1 / 1.05 |
 | E4 (optional, last) | p50c | seed 1000; demoted by amendment 1 in `PLAN.md` (akhaliq's re-run already measures run-to-run variance) |

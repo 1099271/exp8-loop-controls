@@ -1,0 +1,18 @@
+skip /home/www/workspace/mathedit/eval/base__nothink35_32k/parts/math500_s0of5
+skip /home/www/workspace/mathedit/eval/base__nothink35_32k/parts/math500_s1of5
+skip /home/www/workspace/mathedit/eval/base__nothink35_32k/parts/math500_s2of5
+2026-11-03 15:29:59 start base nothink35_32k math500 3/5
+2026-11-03 15:42:22 end rc=0 743s base nothink35_32k math500 3/5
+2026-11-03 15:42:22 start base nothink35_32k math500 4/5
+2026-11-03 15:57:55 end rc=0 933s base nothink35_32k math500 4/5
+2026-11-03 15:57:55 start p50c nothink35_32k math500 0/5
+2026-11-03 16:06:41 end rc=0 526s p50c nothink35_32k math500 0/5
+2026-11-03 16:06:41 start p50c nothink35_32k math500 1/5
+2026-11-03 16:15:30 end rc=0 529s p50c nothink35_32k math500 1/5
+2026-11-03 16:15:30 start p50c nothink35_32k math500 2/5
+2026-11-03 16:23:56 end rc=0 506s p50c nothink35_32k math500 2/5
+2026-11-03 16:23:56 start p50c nothink35_32k math500 3/5
+2026-11-03 16:32:12 end rc=0 496s p50c nothink35_32k math500 3/5
+2026-11-03 16:32:12 start p50c nothink35_32k math500 4/5
+2026-11-03 16:43:07 end rc=0 655s p50c nothink35_32k math500 4/5
+2026-11-03 16:43:07 start rand0 think35 math500 0/5
