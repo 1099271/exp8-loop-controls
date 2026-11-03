@@ -60,15 +60,15 @@
   ]
  },
  "base__think35_rp110|math500": {
-  "acc": 0.2075,
-  "cut_share": 0.7775,
-  "mean_tokens": 27717.07,
-  "problems": 100,
+  "acc": 0.22125,
+  "cut_share": 0.7675,
+  "mean_tokens": 27539.61125,
+  "problems": 200,
   "complete": false,
-  "acc_lenient": 0.3125,
+  "acc_lenient": 0.31875,
   "ci": [
-   0.145,
-   0.2775
+   0.175,
+   0.26875
   ]
  },
  "base__think35_t10|math500": {
