@@ -37,3 +37,23 @@
 
 所有区间都是在题目层面（每题 4 个样本取平均）做 bootstrap 得到的 95 % 区间，配对比较只用同一批题（code/summarize.py）。
 时间允许的话，补充 GSM8K 和第二个随机方向（rand1）；这些是计划外的补充，会单独标出。
+
+## 修订 1（2026-11-03 15:19 +0800；应用户要求，由研究会话 lm-understand-logs-02 转达）
+修订时已知的计划内结果：E1（全量）、E2 base 的第 1/5 分片（15.2 %，cut 84.5 %）。E1b 的第 1/5 分片正在跑，还没有结果。
+E3、E4、E5 都还没有结果。
+
+新的外部信息（本会话已独立核实，数据在 external/hf_akhaliq_eval/，来源和 sha256 见 SOURCE.txt）：
+- 作者在 HF 发布了 p50c：RikiyaT/Qwen3.5-0.8B-weight-space-programming（revision d1671a17）。其中 safetensors 的
+  LFS sha256 = fd1e42ac…，和本地 models/p50c 逐位相同。
+- akhaliq 在这个 checkpoint 上重跑了 MATH-500 全量（think35，seed 0，H200，vLLM 0.33.0，transformers 5.20.2，
+  math-verify 0.9.0）：acc 51.0 %，cut 31.6 %，mean_tokens 21,704。与作者发布的 p50c 逐题配对（500 题）：+2.9，
+  95 % 区间 [+0.95, +4.80]。权重、协议、seed 都相同，差别只在硬件和 batching，结果相差约 3 个点。
+
+改动：
+1. E4（p50c think35_s1000）移到队列最后，改为可选。"48.1 的运行间波动" 先用 akhaliq 和发布值的差（+2.9）来估计；
+   这个差来自硬件和 batching 的非确定性，不是换了 seed。E4 如果跑完，以 E4 为准，两者并列报告。
+2. 每一轮轮转里 E5（rand0 think35）排第一。
+3. E3b（rp 1.05）改为有条件：看 E3（rp 1.1）第 1/5 分片的结果再定。rp 1.1 如果已经打断循环
+   （cut < 50 %），而且 acc 没有明显变差（不低于 p50c 在同批题上的发布值减 5 个点），就不跑 E3b；否则把 E3b 插到 E4 前面。
+4. 判定标准里的 "参照值" 改为：p50c thinking 记为 48–51 的区间（作者 48.1，akhaliq 51.0）；标准 1 中
+   "E4 测得的 seed 波动" 在 E4 没跑的情况下，改用上面这 2.9 个点。其余标准不变。

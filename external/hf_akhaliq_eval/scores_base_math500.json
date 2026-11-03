@@ -1,0 +1,249 @@
+{
+ "summary": {
+  "acc": 0.05,
+  "cut_share": 0.95,
+  "mean_tokens": 31689.95,
+  "n_problems": 25,
+  "samples": 4,
+  "seconds": 288,
+  "gen_tokens": 3168995,
+  "tok_per_s": 11016.7,
+  "sampling": {
+   "temperature": 0.6,
+   "top_p": 0.95,
+   "top_k": 20,
+   "presence_penalty": 1.5,
+   "max_tokens": 32768,
+   "seed": 0
+  },
+  "thinking": true,
+  "ckpt": "base"
+ },
+ "per_problem": [
+  {
+   "id": "test/precalculus/807.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/intermediate_algebra/1994.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/2584.json",
+   "correct": [
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/number_theory/572.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/1349.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/prealgebra/1622.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/number_theory/515.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/precalculus/927.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/2036.json",
+   "correct": [
+    1,
+    1,
+    1,
+    0
+   ]
+  },
+  {
+   "id": "test/prealgebra/1139.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/number_theory/1032.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/intermediate_algebra/1197.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/number_theory/737.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/geometry/248.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/precalculus/1303.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/precalculus/990.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/intermediate_algebra/134.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/precalculus/1199.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/geometry/434.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/intermediate_algebra/1000.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/1098.json",
+   "correct": [
+    1,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/intermediate_algebra/607.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/1837.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/2193.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "test/algebra/2427.json",
+   "correct": [
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ ]
+}

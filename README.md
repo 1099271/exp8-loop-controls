@@ -32,13 +32,16 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | Stage 1 | p50c | think35 | 43.0 (pub same shard 37.0) | 34.0 (31.0) | 23,564 | – | 50 |
 | **E1** | base | nothink35 | **44.5 [41.2, 48.1]** | 30.4 | 3,661 | **56.9 [54.7, 59.2]** | 500 / 1319 |
 | **E1** | p50c | nothink35 | **44.3 [40.9, 47.7]** | 32.0 | 3,836 | **54.4 [52.2, 56.6]** | 500 / 1319 |
+| ref: akhaliq re-run | p50c (HF, same sha256) | think35, seed 0, H200 | 51.0 (paired vs pub +2.9 [+1.0, +4.8]) | 31.6 | 21,704 | – | 500 |
 | E2 (partial) | base | think35_t10 | 15.2 [9.8, 21.2] | 84.5 | 29,994 | – | 100 |
 
 Key observations so far:
 
 - Stage 1 matches the published pipeline (the base model loops about 95 % of the time; p50c about a third).
 - **E1:** the *unedited* model in non-thinking mode, which is the model card's default for 0.8B, already scores
-  44.5 % on MATH-500, 3.6 points below p50c's published thinking-mode 48.1 %. In non-thinking mode the edit
+  44.5 % on MATH-500, 3.6-6.5 points below p50c in thinking mode (48.1 % published by the authors, 51.0 % in
+  akhaliq's independent re-run of the same weights; that +2.9 gap with identical weights, protocol and seed is the
+  run-to-run variance from hardware and batching). In non-thinking mode the edit
   changes nothing (paired difference −0.2, 95 % CI [−2.2, +1.8]).
 - GSM8K is the open case: p50c in thinking mode (67.1 %) is about 10 points above the base model in non-thinking mode
   (56.9 %). E2–E5 test whether other ways of stopping the loop also recover that.
@@ -46,14 +49,14 @@ Key observations so far:
   think35, same problems) to 15.2 %, but 84.5 % of its answers still hit the cap; p50c's published score on the same
   problems is 45.0 %.
 
-Still running (see [`queues/stage2b.txt`](queues/stage2b.txt)):
+Still running (see [`queues/stage2c.txt`](queues/stage2c.txt); order changed by amendment 1 in `PLAN.md`: E5 first in each round, E3b conditional on E3, E4 last):
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
 | E1b | base, p50c | thinking off, max 32,768 tokens (same budget as thinking runs) |
 | E2 | base, p50c | temperature 1.0 |
 | E3 / E3b | base, p50c | repetition_penalty 1.1 / 1.05 |
-| E4 | p50c | seed 1000 (seed variance of the 48.1 %) |
+| E4 (optional, last) | p50c | seed 1000; demoted by amendment 1 in `PLAN.md` (akhaliq's re-run already measures run-to-run variance) |
 | E5 | rand0 | same 64 columns, same norm, rank-1, random output direction orthogonal to p50c's |
 
 The final write-up will be `report.md` (Chinese).
@@ -67,6 +70,7 @@ The final write-up will be `report.md` (Chinese).
 | `code/` | copy of `exp8_math/code/` from the source repo, plus `make_random_control.py` and `summarize.py` |
 | `tools/` | job queue runner, queue swap script, vLLM smoke test (`run_queue.sh` at the root is the same file, used by the running queue) |
 | `queues/` | the exact job lists that were run |
+| `external/hf_akhaliq_eval/` | akhaliq's re-run scores of p50c from the authors' HF repo (Apache-2.0), with source and hashes |
 | `eval/<model>__<protocol>/` | results in the source repo's format: `parts/<set>_s<i>of<k>/{scores.json, *_per_problem.json, *_first_samples.jsonl}`, `merged.json` |
 | `eval/summary.json` | output of `code/summarize.py` (merged scores and bootstrap intervals) |
 | `logs/` | full stdout/stderr of every run |
