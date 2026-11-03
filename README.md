@@ -76,13 +76,15 @@ Key observations so far:
   think35, same problems) to 15.2 %, but 84.5 % of its answers still hit the cap; p50c's published score on the same
   problems is 45.0 %.
 
-Still running (see [`queues/stage2e.txt`](queues/stage2e.txt); order changed by amendment 1 in `PLAN.md`: E5 first in each round, E3b conditional on E3, E4 last):
+Still running (see [`queues/stage2f.txt`](queues/stage2f.txt), amendment 3 in `PLAN.md`; order changed by amendment 1 in `PLAN.md`: E5 first in each round, E3b conditional on E3, E4 last):
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
 | E2 | base, p50c | temperature 1.0 |
-| E3 / E3b | base, p50c | repetition_penalty 1.1 / 1.05 |
-| E4 (optional, last) | p50c | seed 1000; demoted by amendment 1 in `PLAN.md` (akhaliq's re-run already measures run-to-run variance) |
+| E3 | base, p50c | repetition_penalty 1.1 |
+| E4 | p50c | seed 1000; also the only full p50c think35 run on this machine (same-hardware reference for E1b) |
+| E5b | rand1 | second random direction (seed 1, \|cos\| with rand0 = 0.0066), think35 |
+| E3b | base | repetition_penalty 1.05, one shard only (amendment 3) |
 | E5 | rand0 | same 64 columns, same norm, rank-1, random output direction orthogonal to p50c's |
 
 The final write-up will be `report.md` (Chinese).

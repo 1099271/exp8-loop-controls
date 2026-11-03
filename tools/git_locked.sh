@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# run a git command under the same lock as tools/autopush.sh:  tools/git_locked.sh git commit ...
+exec flock /tmp/exp8-git.lock "$@"

@@ -14,3 +14,4 @@ d986ae2cc5326f107d72a06569b73924f5b054ad1798ec943c41dccaba0b15ea  bench/minerva.
 RikiyaT/lm_understand-logs @ 4d09ba6d6a7e891dd8063974dfe81b3d78e3494f
 # base model
 Qwen/Qwen3.5-0.8B @ 2fc06364715b967f1860aea9cf38778875588b17
+de1ea7e51475a0a1ec06e26b960feadc5256a28e97a95cf0ea6a32ae75364226  models/rand1/model.safetensors-00001-of-00001.safetensors
