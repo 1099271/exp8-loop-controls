@@ -39,3 +39,6 @@
 2026-11-03 13:36:51 start p50c nothink35 gsm8k 4/5
 2026-11-03 13:38:58 end rc=0 127s p50c nothink35 gsm8k 4/5
 2026-11-03 13:38:58 start base think35_t10 math500 0/5
+2026-11-03 14:49:57 end rc=0 4259s base think35_t10 math500 0/5
+2026-11-03 14:49:57 start p50c think35_t10 math500 0/5
+2026-11-03 14:50:13 swapped to stage2b
