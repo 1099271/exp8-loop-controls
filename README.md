@@ -36,7 +36,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E1b** | base | nothink35_32k | **49.9 [46.5, 53.3]** | 11.7 | 7,697 | – | 500 |
 | **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
-| E5 (partial) | rand0 | think35 | 24.9 [21.8, 28.3] | 73.7 | 26,516 | – | 400 |
+| **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
 | E3 (partial) | base | think35_rp110 | 24.5 [21.2, 27.9] | 73.8 | 26,840 | – | 400 |
 | E3 (partial) | p50c | think35_rp110 | 44.1 [40.1, 48.1] | 40.8 | 22,280 | – | 400 |
 | E2 (partial) | p50c | think35_t10 | 29.8 [25.9, 33.6] | 65.2 | 26,832 | – | 400 |
@@ -66,7 +66,10 @@ Key observations so far:
 - **E3 (first 100 problems):** repetition_penalty 1.1 does not stop the base model's loops (cut 77.8 %, 20.8 %;
   +14.5 [+9.5, +20.0] over published base, p50c published is +24.2 [+18.8, +30.0] above it). On p50c it costs little
   (41.5 %, −3.5 [−8.8, +1.8] vs published). Per the pre-set rule (amendment 1), E3b (1.05) is therefore run.
-- **E5 (first 100 problems):** the random-direction control (same 64 columns, same norm, rank-1) scores 20.2 %
+- **E5 (complete, 500 problems):** the random-direction control scores 23.3 % (cut 75.4 %): +15.4 [+13.3, +17.5]
+  over the published base, while published p50c is +24.8 [+22.1, +27.5] above it. A same-size perturbation of the
+  same columns in a random direction recovers about a third of the gain; the direction matters.
+- **E5, first 100 problems (earlier note):** the random-direction control (same 64 columns, same norm, rank-1) scores 20.2 %
   (cut 77.8 %): above the base model on the same problems (6.2 %, +14.0 [+10.0, +18.2]) but far below p50c
   (45.0 % published / 49.0 % akhaliq; p50c − rand0 = +24.8 [+19.0, +30.5]). So far the direction matters for how
   well the loop is broken.
