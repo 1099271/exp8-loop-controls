@@ -1,0 +1,11 @@
+(1) per-problem Pearson r, and problems solved at least 3/4 by one config and at most 1/4 by the other
+  pub p50c think     vs akhaliq p50c think r=0.861  only-first   8  only-second  13
+  base nothink8k     vs p50c nothink8k     r=0.836  only-first  10  only-second  13
+  base nothink32k    vs p50c nothink32k    r=0.787  only-first  15  only-second  19
+  base nothink32k    vs pub p50c think     r=0.733  only-first  20  only-second  23
+  base nothink32k    vs akhaliq p50c think r=0.718  only-first  22  only-second  30
+(2) published first samples: score by whether the answer closed its reasoning
+  unedited  math500  n=  200 | closed:    13 acc 100.0 | not closed:   187 acc   1.1 (has a box   1.1 %) | share of all correct from not closed  13.3 %
+  unedited  gsm8k    n=  200 | closed:    21 acc  95.2 | not closed:   179 acc   1.7 (has a box   1.7 %) | share of all correct from not closed  13.0 %
+  p50c      math500  n=  200 | closed:   152 acc  60.5 | not closed:    48 acc   0.0 (has a box   0.0 %) | share of all correct from not closed   0.0 %
+  p50c      gsm8k    n=  200 | closed:   188 acc  64.9 | not closed:    12 acc   0.0 (has a box   0.0 %) | share of all correct from not closed   0.0 %
