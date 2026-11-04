@@ -19,6 +19,14 @@ MATH-500 answers hit the 32,768-token cap. So is the gain
 The decision criteria were fixed in [`PLAN.md`](PLAN.md) (commit `2ebd527`) before any E1b–E5 result existed.
 Results already known at that time are listed there separately and are not treated as pre-registered.
 
+## What the authors already say
+
+The [blog post](https://rikiyat.github.io/blog/weight-space-programming/) attributes the gain to loops, in its own words:
+"Fixing loops, however, is not the same as making a model better at math: it lets the model finish answers it could
+already work out." Its Gemma follow-up reports that Astra could not improve a model that rarely loops. The post does not
+mention non-thinking mode (no occurrence of "non-thinking", "thinking mode" or "default" in the page text, 2026-11-04). This
+repository adds measurements to that account; it does not dispute it.
+
 ## Results so far
 
 MATH-500 / GSM8K, 4 samples per problem, accuracy with a 95 % problem-level bootstrap interval. `cut` = share of
