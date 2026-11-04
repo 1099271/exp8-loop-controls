@@ -46,7 +46,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
 | **E4** | p50c | think35_s1000 (this machine) | **51.3 [47.8, 54.9]** | 32.4 | 22,011 | – | 500 |
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
-| E5b (partial) | rand1 | think35 | 10.9 [8.9, 12.9] (rand0 on the same problems 24.9) | 88.9 | 30,328 | – | 400 |
+| **E5b** | rand1 | think35 | **10.7 [8.9, 12.6]** | 89.2 | 30,362 | – | 500 |
 | **E3** | base | think35_rp110 | **23.3 [20.4, 26.3]** | 75.0 | 27,112 | – | 500 |
 | **E3** | p50c | think35_rp110 | **42.8 [39.3, 46.2]** | 42.3 | 22,825 | – | 500 |
 | **E2** | p50c | think35_t10 | **28.0 [24.6, 31.4]** | 67.5 | 27,220 | – | 500 |
@@ -76,8 +76,10 @@ Key observations (E1, E1b, E2, E3, E5 complete; paired differences are over the 
   that p50c's sensitivity is caused by this is a hypothesis, not something tested here.
 - **E3, repetition_penalty 1.1.** Base 23.3 % (cut 75.0 %). p50c 42.8 % (cut 42.3 %), −5.3 [−7.4, −3.2] against published.
 - **E5, random direction** (same 64 columns, same norm, rank-1). 23.3 % (cut 75.4 %): +15.4 [+13.3, +17.5] over published
-  base, with published p50c +24.8 [+22.1, +27.5] above it. E5b so far (first 400 problems): a second random direction scores only 10.9 % with 88.9 % cut, about 14 points
-  below rand0 on the same problems, so random directions differ a lot and rand0's gain should not be generalised.
+  base, with published p50c +24.8 [+22.1, +27.5] above it. **E5b (complete):** a second random direction scores 10.7 % with 89.2 % cut: +2.8 [+1.2, +4.4] over published base,
+  −12.6 [−14.8, −10.4] against rand0, and E4 is +40.6 [+37.5, +43.7] above it. Same-size random directions range from barely
+  any effect to about a third of the gain; two draws cannot say what is typical, but both are far below p50c. rand1 meets
+  criterion 4's "close to base" (acc < 15 %, cut > 80 %).
 - **Against the criteria fixed in `PLAN.md`.** No no-edit method and no random direction reaches cut < 50 %, so criterion
   1 (B) is not met and criterion 2 does not apply. Temperature 1.0 (cut 81.2 %) falls under criterion 3 (not a
   loop-breaker). Repetition penalty and rand0 (cut about 75 %) fall between the thresholds, which the criteria did not
@@ -88,7 +90,6 @@ Still running (see [`queues/stage2f.txt`](queues/stage2f.txt), amendment 3 in `P
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
-| E5b | rand1 | second random direction (seed 1, \|cos\| with rand0 = 0.0066) |
 | E3b | base | repetition_penalty 1.05, one shard only |
 
 The final write-up will be `report.md` (Chinese).
