@@ -59,6 +59,18 @@
    0.105
   ]
  },
+ "base__think35_rp105|math500": {
+  "acc": 0.145,
+  "cut_share": 0.8525,
+  "mean_tokens": 29372.33,
+  "problems": 100,
+  "complete": false,
+  "acc_lenient": 0.2575,
+  "ci": [
+   0.095,
+   0.2025
+  ]
+ },
  "base__think35_rp110|math500": {
   "acc": 0.233,
   "cut_share": 0.75,

@@ -61,3 +61,5 @@ skip /home/www/workspace/mathedit/eval/p50c__think35_t10/parts/math500_s1of5
 2026-11-05 03:24:48 start rand1 think35 math500 4/5
 2026-11-05 04:38:09 end rc=0 4401s rand1 think35 math500 4/5
 2026-11-05 04:38:09 start base think35_rp105 math500 0/5
+2026-11-05 05:48:48 end rc=0 4239s base think35_rp105 math500 0/5
+2026-11-05 05:48:48 queue done queues/stage2f.txt
