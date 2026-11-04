@@ -9,3 +9,7 @@ W1104 11:15:42.090000 1180184 torch/_library/opaque_object.py:211] typ='value' i
 (MainProcess pid=1180184) INFO 11-04 11:15:49 [scheduler.py:310] Chunked prefill is enabled with max_num_batched_tokens=8192.
 (MainProcess pid=1180184) INFO 11-04 11:15:49 [config.py:766] Mamba cache mode is set to 'align' for Qwen3_5ForConditionalGeneration by default when prefix caching is enabled
 (MainProcess pid=1180184) INFO 11-04 11:15:49 [kernel.py:480] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(MainProcess pid=1180184) WARNING 11-04 11:15:52 [system_utils.py:154] We must use the `spawn` multiprocessing start method. Overriding VLLM_WORKER_MULTIPROC_METHOD to 'spawn'. See https://docs.vllm.ai/en/latest/usage/troubleshooting.html#python-multiprocessing for more information. Reasons: CUDA is initialized; WSL is detected and NVML is not compatible with fork
+W1104 11:15:54.104000 1180644 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1104 11:15:54.105000 1180644 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1104 11:15:54.105000 1180644 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
