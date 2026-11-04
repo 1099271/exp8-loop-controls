@@ -46,7 +46,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
 | **E4** | p50c | think35_s1000 (this machine) | **51.3 [47.8, 54.9]** | 32.4 | 22,011 | – | 500 |
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
-| E5b (partial) | rand1 | think35 | 9.2 (rand0 on the same problems 20.2) | 91.2 | 30,807 | – | 100 |
+| E5b (partial) | rand1 | think35 | 9.9 [7.1, 12.9] (rand0 on the same problems 21.0) | 90.0 | 30,471 | – | 200 |
 | **E3** | base | think35_rp110 | **23.3 [20.4, 26.3]** | 75.0 | 27,112 | – | 500 |
 | **E3** | p50c | think35_rp110 | **42.8 [39.3, 46.2]** | 42.3 | 22,825 | – | 500 |
 | **E2** | p50c | think35_t10 | **28.0 [24.6, 31.4]** | 67.5 | 27,220 | – | 500 |
@@ -76,8 +76,8 @@ Key observations (E1, E1b, E2, E3, E5 complete; paired differences are over the 
   that p50c's sensitivity is caused by this is a hypothesis, not something tested here.
 - **E3, repetition_penalty 1.1.** Base 23.3 % (cut 75.0 %). p50c 42.8 % (cut 42.3 %), −5.3 [−7.4, −3.2] against published.
 - **E5, random direction** (same 64 columns, same norm, rank-1). 23.3 % (cut 75.4 %): +15.4 [+13.3, +17.5] over published
-  base, with published p50c +24.8 [+22.1, +27.5] above it. E5b so far (first 100 problems): a second random direction scores only 9.2 % with 91.2 % cut, −11.0 [−15.8, −6.5]
-  against rand0 on the same problems, so random directions differ a lot and rand0's gain should not be generalised.
+  base, with published p50c +24.8 [+22.1, +27.5] above it. E5b so far (first 200 problems): a second random direction scores only 9.9 % with 90.0 % cut, about 11 points
+  below rand0 on the same problems, so random directions differ a lot and rand0's gain should not be generalised.
 - **Against the criteria fixed in `PLAN.md`.** No no-edit method and no random direction reaches cut < 50 %, so criterion
   1 (B) is not met and criterion 2 does not apply. Temperature 1.0 (cut 81.2 %) falls under criterion 3 (not a
   loop-breaker). Repetition penalty and rand0 (cut about 75 %) fall between the thresholds, which the criteria did not
