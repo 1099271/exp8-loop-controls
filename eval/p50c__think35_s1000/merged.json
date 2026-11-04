@@ -1,10 +1,10 @@
 {
  "math500": {
-  "acc": 0.52625,
-  "cut_share": 0.30375,
-  "mean_tokens": 21572.9175,
-  "problems": 400,
-  "complete": false,
-  "acc_lenient": 0.58875
+  "acc": 0.513,
+  "cut_share": 0.324,
+  "mean_tokens": 22011.2715,
+  "problems": 500,
+  "complete": true,
+  "acc_lenient": 0.5795
  }
 }
