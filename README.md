@@ -39,7 +39,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
 | E3 (partial) | base | think35_rp110 | 24.5 [21.2, 27.9] | 73.8 | 26,840 | – | 400 |
 | E3 (partial) | p50c | think35_rp110 | 44.1 [40.1, 48.1] | 40.8 | 22,280 | – | 400 |
-| E2 (partial) | p50c | think35_t10 | 29.8 [25.9, 33.6] | 65.2 | 26,832 | – | 400 |
+| **E2** | p50c | think35_t10 | **28.0 [24.6, 31.4]** | 67.5 | 27,220 | – | 500 |
 | **E2** | base | think35_t10 | **18.1 [15.4, 21.0]** | 81.2 | 29,472 | – | 500 |
 
 Key observations so far:
@@ -60,7 +60,10 @@ Key observations so far:
   thinking mode that terminates is worth something that non-thinking mode does not give.
 - **E2 base (complete):** temperature 1.0 lifts the base model from 7.9 % to 18.1 % (+10.2 [+8.2, +12.4]) but 81.2 %
   of its answers still hit the cap; published p50c is +29.9 [+27.0, +33.0] above it.
-- **E2 on p50c (first 100 problems):** at temperature 1.0 (the model card's thinking setting) p50c loops again: 70.0 %
+- **E2 p50c (complete):** at temperature 1.0 p50c scores 28.0 % with 67.5 % of answers cut: −20.2 [−22.9, −17.4]
+  against its published 48.1 % (−23.1 [−25.9, −20.2] against akhaliq's 51.0 %). It is still +9.8 [+7.8, +11.8] above
+  the base model at the same temperature.
+- **E2 on p50c (first 100 problems, earlier note):** at temperature 1.0 (the model card's thinking setting) p50c loops again: 70.0 %
   of answers hit the cap and it scores 25.8 %, against 45.0 % (published) / 49.0 % (akhaliq) at temperature 0.6 on the
   same problems (paired −19.2 [−25.8, −13.0] vs published). The edit's loop-breaking depends on the sampling it was
   found with (Astra's practice passes used the evaluation's temperature 0.6). At 1.0 it is still +10.5 [+5.8, +15.5]
