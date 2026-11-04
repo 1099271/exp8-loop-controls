@@ -4,7 +4,7 @@
 # retried on the next tick. Shares tools/git_locked.sh's lock with manual commits.
 W=/home/www/workspace/mathedit
 cd $W
-last=""; beat=$(date +%s)
+last=""; beat=$(date +%s); retry=0
 while true; do
   cur=$(grep -hE "end rc|FAILED|swapped|queue done" logs/queue_*.log 2>/dev/null | md5sum)
   now=$(date +%s)
@@ -18,7 +18,12 @@ while true; do
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\"
       git push -q origin main 2>&1 | tail -2" && echo "$(date '+%F %T') ok: $msg"
-    if git status -sb | head -1 | grep -q ahead; then echo "$(date '+%F %T') push pending (will retry)"; else last=$cur; beat=$now; fi
+    last=$cur; beat=$now     # committed; a failed push is retried below without new commits
+    git status -sb | head -1 | grep -q ahead && echo "$(date '+%F %T') push pending (will retry)"
+  elif git status -sb | head -1 | grep -q ahead && [[ $((now - retry)) -ge 300 ]]; then
+    retry=$now
+    flock /tmp/exp8-git.lock git push -q origin main 2>&1 | tail -1
+    git status -sb | head -1 | grep -q ahead && echo "$(date '+%F %T') push still failing (retry in 5 min)" || echo "$(date '+%F %T') ok: pending commits pushed"
   fi
   sleep 30
 done
