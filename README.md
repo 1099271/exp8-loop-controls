@@ -37,7 +37,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
-| E3 (partial) | base | think35_rp110 | 24.5 [21.2, 27.9] | 73.8 | 26,840 | – | 400 |
+| **E3** | base | think35_rp110 | **23.3 [20.4, 26.3]** | 75.0 | 27,112 | – | 500 |
 | E3 (partial) | p50c | think35_rp110 | 44.1 [40.1, 48.1] | 40.8 | 22,280 | – | 400 |
 | **E2** | p50c | think35_t10 | **28.0 [24.6, 31.4]** | 67.5 | 27,220 | – | 500 |
 | **E2** | base | think35_t10 | **18.1 [15.4, 21.0]** | 81.2 | 29,472 | – | 500 |
@@ -68,7 +68,10 @@ Key observations so far:
   same problems (paired −19.2 [−25.8, −13.0] vs published). The edit's loop-breaking depends on the sampling it was
   found with (Astra's practice passes used the evaluation's temperature 0.6). At 1.0 it is still +10.5 [+5.8, +15.5]
   above the base model at 1.0 (15.2 %).
-- **E3 (first 100 problems):** repetition_penalty 1.1 does not stop the base model's loops (cut 77.8 %, 20.8 %;
+- **E3 base (complete):** repetition_penalty 1.1 gives 23.3 % with 75.0 % cut: +15.4 [+13.2, +17.7] over the
+  published base, exactly the random-direction control's level (rand0 − base rp1.1 = +0.0 [−1.9, +1.9]); published
+  p50c is +24.8 [+22.1, +27.5] above it.
+- **E3 (first 100 problems, earlier note):** repetition_penalty 1.1 does not stop the base model's loops (cut 77.8 %, 20.8 %;
   +14.5 [+9.5, +20.0] over published base, p50c published is +24.2 [+18.8, +30.0] above it). On p50c it costs little
   (41.5 %, −3.5 [−8.8, +1.8] vs published). Per the pre-set rule (amendment 1), E3b (1.05) is therefore run.
 - **E5 (complete, 500 problems):** the random-direction control scores 23.3 % (cut 75.4 %): +15.4 [+13.3, +17.5]
