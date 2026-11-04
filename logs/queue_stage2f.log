@@ -27,3 +27,5 @@ skip /home/www/workspace/mathedit/eval/p50c__think35_t10/parts/math500_s1of5
 2026-11-04 10:14:28 start p50c think35_t10 math500 3/5
 2026-11-04 11:15:39 end rc=0 3671s p50c think35_t10 math500 3/5
 2026-11-04 11:15:39 start base think35_rp110 math500 3/5
+2026-11-04 12:17:32 end rc=0 3713s base think35_rp110 math500 3/5
+2026-11-04 12:17:32 start p50c think35_rp110 math500 3/5
