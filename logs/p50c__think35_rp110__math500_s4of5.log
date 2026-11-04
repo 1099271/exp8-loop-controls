@@ -84,3 +84,4 @@ W1104 17:38:56.911000 1742114 torch/_library/opaque_object.py:211] typ='value' i
 Rendering prompts:   0%|          | 0/100 [00:00<?, ?it/s]Rendering prompts: 100%|██████████| 100/100 [00:00<00:00, 2158.24it/s]
 Processed prompts:   0%|          | 0/400 [00:00<?, ?it/s, est. speed input: 0.00 toks/s, output: 0.00 toks/s](EngineCore pid=1742114) WARNING 11-04 17:39:25 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _topk_topp_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
 (EngineCore pid=1742114) WARNING 11-04 17:39:25 [jit_monitor.py:140] Triton kernel JIT compilation during inference: _gumbel_sample_kernel. This causes a latency spike; consider extending warmup to cover this shape/config.
+Processed prompts:   1%|          | 4/400 [01:04<1:47:08, 16.23s/it, est. speed input: 2.96 toks/s, output: 155.07 toks/s]
