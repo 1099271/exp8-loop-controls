@@ -44,6 +44,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E1b** | base | nothink35_32k | **49.9 [46.5, 53.3]** | 11.7 | 7,697 | – | 500 |
 | **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
+| **E4** | p50c | think35_s1000 (this machine) | **51.3 [47.8, 54.9]** | 32.4 | 22,011 | – | 500 |
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
 | **E3** | base | think35_rp110 | **23.3 [20.4, 26.3]** | 75.0 | 27,112 | – | 500 |
 | **E3** | p50c | think35_rp110 | **42.8 [39.3, 46.2]** | 42.3 | 22,825 | – | 500 |
@@ -57,6 +58,11 @@ Key observations (E1, E1b, E2, E3, E5 complete; paired differences are over the 
   44.5 % at 8,192 tokens and **49.9 %** at 32,768 tokens, level with p50c in thinking mode: published p50c − base
   nothink 32k = −1.8 [−4.4, +0.9]; akhaliq's re-run − base nothink 32k = +1.1 [−1.6, +3.9]. These compare two different
   modes on two different machines, so they say the two scores are level, not that the two models are the same.
+- **E4, same machine.** p50c in thinking mode (seed 1000) scores 51.3 % (cut 32.4 %). Same-machine comparison:
+  p50c think − base nothink 32k = +1.5 [−1.3, +4.2], still level. E4 − akhaliq = +0.3 [−1.6, +2.2], but E4 − published =
+  +3.2 [+1.3, +5.1]: both re-runs (vLLM 0.33.0, full release) sit about 3 points above the published 48.1, and the authors'
+  text-only export and vLLM version may be why; this experiment cannot separate those causes. Against E4, the other
+  thinking configs are: rand0 +28.0 [+25.2, +30.9], base rp1.1 +28.0 [+25.2, +30.6], base t1.0 +33.1 [+30.1, +36.1].
 - **The edit in non-thinking mode** stops the remaining loops (cut 11.7 % → 0.4 %) with no change in MATH-500 accuracy
   (+0.3 [−1.9, +2.5]) and slightly lower GSM8K (54.9 vs 56.9).
 - **GSM8K is different.** p50c in thinking mode (67.1 %, published) is +10.2 [+8.1, +12.3] above base non-thinking at
@@ -80,7 +86,6 @@ Still running (see [`queues/stage2f.txt`](queues/stage2f.txt), amendment 3 in `P
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
-| E4 | p50c | seed 1000; also the only full p50c think35 run on this machine |
 | E5b | rand1 | second random direction (seed 1, \|cos\| with rand0 = 0.0066) |
 | E3b | base | repetition_penalty 1.05, one shard only |
 
