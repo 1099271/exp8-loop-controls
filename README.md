@@ -36,7 +36,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E1b** | base | nothink35_32k | **49.9 [46.5, 53.3]** | 11.7 | 7,697 | – | 500 |
 | **E1b** | p50c | nothink35_32k | **50.1 [46.9, 53.4]** | 0.4 | 6,219 | – | 500 |
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
-| E5 (partial) | rand0 | think35 | 23.7 [20.2, 27.3] | 74.6 | 26,723 | – | 300 |
+| E5 (partial) | rand0 | think35 | 24.9 [21.8, 28.3] | 73.7 | 26,516 | – | 400 |
 | E3 (partial) | base | think35_rp110 | 23.6 [19.8, 27.6] | 74.9 | 26,964 | – | 300 |
 | E3 (partial) | p50c | think35_rp110 | 43.3 [38.7, 47.8] | 40.9 | 22,472 | – | 300 |
 | E2 (partial) | p50c | think35_t10 | 29.7 [25.2, 34.3] | 65.7 | 26,862 | – | 300 |
