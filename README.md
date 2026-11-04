@@ -38,65 +38,43 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | E1b (GSM8K, post hoc) | base / p50c | nothink35_32k | – | – | – | 56.9 [54.6, 59.2] / 54.9 [52.6, 57.1] | 1319 |
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
 | **E3** | base | think35_rp110 | **23.3 [20.4, 26.3]** | 75.0 | 27,112 | – | 500 |
-| E3 (partial) | p50c | think35_rp110 | 44.1 [40.1, 48.1] | 40.8 | 22,280 | – | 400 |
+| **E3** | p50c | think35_rp110 | **42.8 [39.3, 46.2]** | 42.3 | 22,825 | – | 500 |
 | **E2** | p50c | think35_t10 | **28.0 [24.6, 31.4]** | 67.5 | 27,220 | – | 500 |
 | **E2** | base | think35_t10 | **18.1 [15.4, 21.0]** | 81.2 | 29,472 | – | 500 |
 
-Key observations so far:
+Key observations (E1, E1b, E2, E3, E5 complete; paired differences are over the same 500 problems):
 
-- Stage 1 matches the published pipeline (the base model loops about 95 % of the time; p50c about a third).
-- **E1:** the *unedited* model in non-thinking mode, which is the model card's default for 0.8B, already scores
-  44.5 % on MATH-500, 3.6-6.5 points below p50c in thinking mode (48.1 % published by the authors, 51.0 % in
-  akhaliq's independent re-run of the same weights; that +2.9 gap with identical weights, protocol and seed is the
-  run-to-run variance from hardware and batching). In non-thinking mode the edit
-  changes nothing (paired difference −0.2, 95 % CI [−2.2, +1.8]).
-- **E1b:** with the same 32,768-token budget as the thinking runs, the *unedited* model in non-thinking mode scores
-  **49.9 %**, inside p50c's thinking range (48.1-51.0). Paired over 500 problems: published p50c minus base
-  non-thinking 32k = −1.8 [−4.4, +0.9]; akhaliq's p50c re-run minus it = +1.1 [−1.6, +3.9]. The 3.6-6.5 point gap in
-  E1 was the 8,192-token cap, not the edit. In non-thinking mode the edit does stop the remaining loops (cut 11.7 %
-  → 0.4 %) but does not change accuracy (+0.3 [−1.9, +2.5]).
-- **GSM8K stays open after E1b** (post-hoc supplement, amendment 2): the 32k budget does not move base non-thinking
-  (56.9 → 56.9), so p50c in thinking mode is **+10.2 [+8.1, +12.3]** above it (paired, 1,319 problems). On GSM8K a
-  thinking mode that terminates is worth something that non-thinking mode does not give.
-- **E2 base (complete):** temperature 1.0 lifts the base model from 7.9 % to 18.1 % (+10.2 [+8.2, +12.4]) but 81.2 %
-  of its answers still hit the cap; published p50c is +29.9 [+27.0, +33.0] above it.
-- **E2 p50c (complete):** at temperature 1.0 p50c scores 28.0 % with 67.5 % of answers cut: −20.2 [−22.9, −17.4]
-  against its published 48.1 % (−23.1 [−25.9, −20.2] against akhaliq's 51.0 %). It is still +9.8 [+7.8, +11.8] above
-  the base model at the same temperature.
-- **E2 on p50c (first 100 problems, earlier note):** at temperature 1.0 (the model card's thinking setting) p50c loops again: 70.0 %
-  of answers hit the cap and it scores 25.8 %, against 45.0 % (published) / 49.0 % (akhaliq) at temperature 0.6 on the
-  same problems (paired −19.2 [−25.8, −13.0] vs published). The edit's loop-breaking depends on the sampling it was
-  found with (Astra's practice passes used the evaluation's temperature 0.6). At 1.0 it is still +10.5 [+5.8, +15.5]
-  above the base model at 1.0 (15.2 %).
-- **E3 base (complete):** repetition_penalty 1.1 gives 23.3 % with 75.0 % cut: +15.4 [+13.2, +17.7] over the
-  published base, exactly the random-direction control's level (rand0 − base rp1.1 = +0.0 [−1.9, +1.9]); published
-  p50c is +24.8 [+22.1, +27.5] above it.
-- **E3 (first 100 problems, earlier note):** repetition_penalty 1.1 does not stop the base model's loops (cut 77.8 %, 20.8 %;
-  +14.5 [+9.5, +20.0] over published base, p50c published is +24.2 [+18.8, +30.0] above it). On p50c it costs little
-  (41.5 %, −3.5 [−8.8, +1.8] vs published). Per the pre-set rule (amendment 1), E3b (1.05) is therefore run.
-- **E5 (complete, 500 problems):** the random-direction control scores 23.3 % (cut 75.4 %): +15.4 [+13.3, +17.5]
-  over the published base, while published p50c is +24.8 [+22.1, +27.5] above it. A same-size perturbation of the
-  same columns in a random direction recovers about a third of the gain; the direction matters.
-- **E5, first 100 problems (earlier note):** the random-direction control (same 64 columns, same norm, rank-1) scores 20.2 %
-  (cut 77.8 %): above the base model on the same problems (6.2 %, +14.0 [+10.0, +18.2]) but far below p50c
-  (45.0 % published / 49.0 % akhaliq; p50c − rand0 = +24.8 [+19.0, +30.5]). So far the direction matters for how
-  well the loop is broken.
-- Earlier note, GSM8K: p50c in thinking mode (67.1 %) is about 10 points above the base model in non-thinking mode
-  (56.9 %). E2–E5 test whether other ways of stopping the loop also recover that.
-- E2 (temperature 1.0, model-card thinking setting), first 100 problems: the base model goes from 6.2 % (published
-  think35, same problems) to 15.2 %, but 84.5 % of its answers still hit the cap; p50c's published score on the same
-  problems is 45.0 %.
+- **Pipeline check.** Stage 1 matches the published numbers on the same shard.
+- **E1 / E1b, non-thinking mode.** The unedited model, in the mode the model card describes as the 0.8B default, scores
+  44.5 % at 8,192 tokens and **49.9 %** at 32,768 tokens, level with p50c in thinking mode: published p50c − base
+  nothink 32k = −1.8 [−4.4, +0.9]; akhaliq's re-run − base nothink 32k = +1.1 [−1.6, +3.9]. These compare two different
+  modes on two different machines, so they say the two scores are level, not that the two models are the same.
+- **The edit in non-thinking mode** stops the remaining loops (cut 11.7 % → 0.4 %) with no change in MATH-500 accuracy
+  (+0.3 [−1.9, +2.5]) and slightly lower GSM8K (54.9 vs 56.9).
+- **GSM8K is different.** p50c in thinking mode (67.1 %, published) is +10.2 [+8.1, +12.3] above base non-thinking at
+  32k (56.9 %). The token budget does not explain this gap. No no-edit method here stops the loops in thinking mode,
+  so this data cannot say whether another loop-breaker would earn the same gain.
+- **E2, temperature 1.0.** Base 18.1 % (cut 81.2 %). p50c 28.0 % (cut 67.5 %), which is −20.2 [−22.9, −17.4] against its
+  published 48.1 % and +9.8 [+7.8, +11.8] against base at the same temperature. Both temperatures come from the model
+  card: 0.6 is the setting of its thinking-mode benchmark table (the one the authors used, see the comment in
+  `code/evaluate.py`), 1.0 is its general recommendation for thinking-mode text tasks. Astra's practice passes used 0.6;
+  that p50c's sensitivity is caused by this is a hypothesis, not something tested here.
+- **E3, repetition_penalty 1.1.** Base 23.3 % (cut 75.0 %). p50c 42.8 % (cut 42.3 %), −5.3 [−7.4, −3.2] against published.
+- **E5, random direction** (same 64 columns, same norm, rank-1). 23.3 % (cut 75.4 %): +15.4 [+13.3, +17.5] over published
+  base, with published p50c +24.8 [+22.1, +27.5] above it. One random direction only until E5b finishes.
+- **Against the criteria fixed in `PLAN.md`.** No no-edit method and no random direction reaches cut < 50 %, so criterion
+  1 (B) is not met and criterion 2 does not apply. Temperature 1.0 (cut 81.2 %) falls under criterion 3 (not a
+  loop-breaker). Repetition penalty and rand0 (cut about 75 %) fall between the thresholds, which the criteria did not
+  anticipate. rand0 (23.3 %, 75.4 %) meets neither side of criterion 4: above "close to base" (acc < 15 %, cut > 80 %) and
+  far from p50c.
 
-Still running (see [`queues/stage2f.txt`](queues/stage2f.txt), amendment 3 in `PLAN.md`; order changed by amendment 1 in `PLAN.md`: E5 first in each round, E3b conditional on E3, E4 last):
+Still running (see [`queues/stage2f.txt`](queues/stage2f.txt), amendment 3 in `PLAN.md`):
 
 | Name | Model | Change vs. think35 |
 |---|---|---|
-| E2 | base, p50c | temperature 1.0 |
-| E3 | base, p50c | repetition_penalty 1.1 |
-| E4 | p50c | seed 1000; also the only full p50c think35 run on this machine (same-hardware reference for E1b) |
-| E5b | rand1 | second random direction (seed 1, \|cos\| with rand0 = 0.0066), think35 |
-| E3b | base | repetition_penalty 1.05, one shard only (amendment 3) |
-| E5 | rand0 | same 64 columns, same norm, rank-1, random output direction orthogonal to p50c's |
+| E4 | p50c | seed 1000; also the only full p50c think35 run on this machine |
+| E5b | rand1 | second random direction (seed 1, \|cos\| with rand0 = 0.0066) |
+| E3b | base | repetition_penalty 1.05, one shard only |
 
 The final write-up will be `report.md` (Chinese).
 
