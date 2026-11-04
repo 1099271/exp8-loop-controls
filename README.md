@@ -40,7 +40,7 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | E3 (partial) | base | think35_rp110 | 24.5 [21.2, 27.9] | 73.8 | 26,840 | – | 400 |
 | E3 (partial) | p50c | think35_rp110 | 44.1 [40.1, 48.1] | 40.8 | 22,280 | – | 400 |
 | E2 (partial) | p50c | think35_t10 | 29.8 [25.9, 33.6] | 65.2 | 26,832 | – | 400 |
-| E2 (partial) | base | think35_t10 | 18.9 [15.8, 22.2] | 80.4 | 29,366 | – | 400 |
+| **E2** | base | think35_t10 | **18.1 [15.4, 21.0]** | 81.2 | 29,472 | – | 500 |
 
 Key observations so far:
 
@@ -58,6 +58,8 @@ Key observations so far:
 - **GSM8K stays open after E1b** (post-hoc supplement, amendment 2): the 32k budget does not move base non-thinking
   (56.9 → 56.9), so p50c in thinking mode is **+10.2 [+8.1, +12.3]** above it (paired, 1,319 problems). On GSM8K a
   thinking mode that terminates is worth something that non-thinking mode does not give.
+- **E2 base (complete):** temperature 1.0 lifts the base model from 7.9 % to 18.1 % (+10.2 [+8.2, +12.4]) but 81.2 %
+  of its answers still hit the cap; published p50c is +29.9 [+27.0, +33.0] above it.
 - **E2 on p50c (first 100 problems):** at temperature 1.0 (the model card's thinking setting) p50c loops again: 70.0 %
   of answers hit the cap and it scores 25.8 %, against 45.0 % (published) / 49.0 % (akhaliq) at temperature 0.6 on the
   same problems (paired −19.2 [−25.8, −13.0] vs published). The edit's loop-breaking depends on the sampling it was
