@@ -57,3 +57,16 @@ and the repository exists.
 error: failed to push some refs to 'github.com:1099271/exp8-loop-controls.git'
 2026-11-04 17:40:32 ok: auto: 2026-11-04 17:38:42 end rc=0 3967s base think35_rp110 math500 4/5
 2026-11-04 17:40:32 push pending (will retry)
+Please make sure you have the correct access rights
+and the repository exists.
+2026-11-04 17:41:02 ok: auto: 2026-11-04 17:38:42 end rc=0 3967s base think35_rp110 math500 4/5
+2026-11-04 17:41:02 push pending (will retry)
+and the repository exists.
+2026-11-04 17:41:50 push still failing (retry in 5 min)
+and the repository exists.
+2026-11-04 17:47:03 push still failing (retry in 5 min)
+and the repository exists.
+2026-11-04 17:52:20 push still failing (retry in 5 min)
+and the repository exists.
+2026-11-04 17:57:23 push still failing (retry in 5 min)
+2026-11-04 18:03:00 ok: pending commits pushed
