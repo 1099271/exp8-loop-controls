@@ -5,8 +5,8 @@ Independent reproduction of, and control evaluations for, Experiment 8 ("Weight-
 Qwen3.5-0.8B (64 columns of `mlp.down_proj` in layers 15 and 19, 131,072 weights), reported to raise MATH-500 from
 7.9 % to 48.1 %.
 
-**Status: in progress.** Runs are still going on one local RTX 4090; results are committed as they finish, so the
-git history is the timeline. Numbers below are as of 2026-11-03.
+**Status: complete (2026-11-05).** All runs finished on one local RTX 4090; results were committed as they finished, so
+the git history is the timeline. The write-up is [`report.md`](report.md) (Chinese).
 
 ## Question
 
@@ -27,7 +27,7 @@ already work out." Its Gemma follow-up reports that Astra could not improve a mo
 mention non-thinking mode (no occurrence of "non-thinking", "thinking mode" or "default" in the page text, 2026-11-04). This
 repository adds measurements to that account; it does not dispute it.
 
-## Results so far
+## Results
 
 MATH-500 / GSM8K, 4 samples per problem, accuracy with a 95 % problem-level bootstrap interval. `cut` = share of
 samples that hit `max_tokens`. "pub" = the authors' published runs.
@@ -47,12 +47,13 @@ samples that hit `max_tokens`. "pub" = the authors' published runs.
 | **E4** | p50c | think35_s1000 (this machine) | **51.3 [47.8, 54.9]** | 32.4 | 22,011 | – | 500 |
 | **E5** | rand0 | think35 | **23.3 [20.5, 26.2]** | 75.4 | 26,978 | – | 500 |
 | **E5b** | rand1 | think35 | **10.7 [8.9, 12.6]** | 89.2 | 30,362 | – | 500 |
+| E3b (one shard) | base | think35_rp105 | 14.5 [9.5, 20.2] | 85.2 | 29,372 | – | 100 |
 | **E3** | base | think35_rp110 | **23.3 [20.4, 26.3]** | 75.0 | 27,112 | – | 500 |
 | **E3** | p50c | think35_rp110 | **42.8 [39.3, 46.2]** | 42.3 | 22,825 | – | 500 |
 | **E2** | p50c | think35_t10 | **28.0 [24.6, 31.4]** | 67.5 | 27,220 | – | 500 |
 | **E2** | base | think35_t10 | **18.1 [15.4, 21.0]** | 81.2 | 29,472 | – | 500 |
 
-Key observations (E1, E1b, E2, E3, E5 complete; paired differences are over the same 500 problems):
+Key observations (paired differences are over the same 500 problems unless noted):
 
 - **Pipeline check.** Stage 1 matches the published numbers on the same shard.
 - **E1 / E1b, non-thinking mode.** The unedited model, in the mode the model card describes as the 0.8B default, scores
@@ -86,18 +87,15 @@ Key observations (E1, E1b, E2, E3, E5 complete; paired differences are over the 
   anticipate. rand0 (23.3 %, 75.4 %) meets neither side of criterion 4: above "close to base" (acc < 15 %, cut > 80 %) and
   far from p50c.
 
-Still running (see [`queues/stage2f.txt`](queues/stage2f.txt), amendment 3 in `PLAN.md`):
-
-| Name | Model | Change vs. think35 |
-|---|---|---|
-| E3b | base | repetition_penalty 1.05, one shard only |
-
-The final write-up will be `report.md` (Chinese).
+**E3b (rp 1.05, first 100 problems).** Weaker than rp 1.1: 14.5 % with 85.2 % cut, −6.2 [−10.0, −2.8] against rp 1.1 on the same
+problems.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
+| `report.md` | the final report (Chinese) |
+| `analysis/` | scripts and outputs behind every table in the report |
 | `PLAN.md` | question, configurations, pre-fixed decision criteria (Chinese) |
 | `CHANGES.md` | every change made to the authors' code, and why (Chinese) |
 | `code/` | copy of `exp8_math/code/` from the source repo, plus `make_random_control.py` and `summarize.py` |
