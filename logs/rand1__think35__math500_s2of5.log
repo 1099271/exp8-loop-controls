@@ -1,0 +1,15 @@
+W1105 00:59:44.828000 2441702 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1105 00:59:44.828000 2441702 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1105 00:59:44.828000 2441702 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
+(MainProcess pid=2441702) INFO 11-05 00:59:48 [startup.py:96] non-default args: {'dtype': 'bfloat16', 'max_model_len': 34816, 'gpu_memory_utilization': 0.85, 'disable_log_stats': True, 'language_model_only': True, 'model': '/home/www/workspace/mathedit/models/rand1'}
+(MainProcess pid=2441702) INFO 11-05 00:59:48 [model.py:744] Resolved architecture: Qwen3_5ForConditionalGeneration
+(MainProcess pid=2441702) INFO 11-05 00:59:48 [model.py:2170] Using max model len 34816
+(MainProcess pid=2441702) INFO 11-05 00:59:51 [model.py:964] All limits of multimodal modalities supported by the model are set to 0, running in text-only mode.
+(MainProcess pid=2441702) INFO 11-05 00:59:51 [model.py:1021] Disabled mm_prefix attention mode because multimodal inputs are configuration-disabled. Attention backends without mm_prefix support may now be selected.
+(MainProcess pid=2441702) INFO 11-05 00:59:51 [scheduler.py:310] Chunked prefill is enabled with max_num_batched_tokens=8192.
+(MainProcess pid=2441702) INFO 11-05 00:59:51 [config.py:766] Mamba cache mode is set to 'align' for Qwen3_5ForConditionalGeneration by default when prefix caching is enabled
+(MainProcess pid=2441702) INFO 11-05 00:59:51 [kernel.py:480] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'], gelu_and_mul_sparse=['triton', 'native'])
+(MainProcess pid=2441702) WARNING 11-05 00:59:53 [system_utils.py:154] We must use the `spawn` multiprocessing start method. Overriding VLLM_WORKER_MULTIPROC_METHOD to 'spawn'. See https://docs.vllm.ai/en/latest/usage/troubleshooting.html#python-multiprocessing for more information. Reasons: CUDA is initialized; WSL is detected and NVML is not compatible with fork
+W1105 00:59:55.300000 2442072 torch/_opaque_base.py:6] torch._opaque_base is deprecated, use torch._custom_class_base instead
+W1105 00:59:55.301000 2442072 torch/_library/opaque_object.py:288] register_opaque_type is deprecated, use register_custom_class instead
+W1105 00:59:55.302000 2442072 torch/_library/opaque_object.py:211] typ='value' is deprecated, use typ='constant' instead
