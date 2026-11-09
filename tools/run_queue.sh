@@ -4,7 +4,7 @@
 # scores.json with the same _job) is skipped by evaluate.py itself, so the queue can be re-run after a crash.
 W=/home/www/workspace/mathedit
 cd $W && source .venv/bin/activate
-export PYTHONDONTWRITEBYTECODE=1 HF_HOME=$W/hf_cache VLLM_CACHE_ROOT=$W/cache/vllm
+export PYTHONDONTWRITEBYTECODE=1 HF_HOME=$W/hf_cache VLLM_CACHE_ROOT=$W/cache/vllm NLTK_DATA=$W/cache/nltk_data
 while read -r model proto set shard; do
   [[ -z "$model" || "$model" == \#* ]] && continue
   i=${shard%/*}; k=${shard#*/}

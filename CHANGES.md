@@ -33,3 +33,17 @@
 - `evaluate.py prepare`：math500 500、gsm8k 1319（其余几个集合也生成了，本次不用）。各 10 个分片的题目 id 和顺序与
   <repo>/exp8_math/eval/unedited/parts/{math500,gsm8k}_s*of10/*_per_problem.json 完全一致。
 - 用本副本重新评发布的 400 条首样本全文（unedited + p50c 的 math500 各分片）：抽取答案和对错 400/400 一致。
+
+## IFEval（2026-11-09，修订 4，用户批准补跑）
+- 新文件 `code/instruction_following_eval/`：Google 官方 IFEval 评分器（google-research 提交 0eebfd40 的
+  instructions.py、instructions_registry.py、instructions_util.py，未改动；LICENSE 为 Apache-2.0）。
+- 新文件 `code/weightenv/lmo/tasks/ifevalg.py`：shim，把作者 import 的 `weightenv.lmo.tasks.ifevalg` 指向上面的官方包。
+  evaluate.py 的 `grade_other` 没改。
+- 新文件 `tools/prepare_ifeval.py`：从 `external/ifeval_official/input_data.jsonl`（同一提交，541 题）生成
+  bench/ifeval.jsonl，保持文件顺序。各分片题号和作者发布的 ifeval_s*of5 完全一致。sha256 见 external/ifeval_official/SHA256SUMS。
+- venv 新装：absl-py、langdetect、nltk 3.10.4、immutabledict（官方 requirements.txt 列的 4 个）。nltk 数据 punkt / punkt_tab
+  从 nltk_data 的 gh-pages 手动下载到 cache/nltk_data（nltk.download 被本机代理拦了），zip 的 sha256：punkt 51c30789…，
+  punkt_tab e57f6418…。nltk 3.10 读 `punkt/english.pickle` 时实际用的是 punkt_tab。
+- `tools/run_queue.sh`：加了 `NLTK_DATA=$W/cache/nltk_data`。
+- 验证：`analysis/validate_ifeval_grader.py` 重判作者发布的 400 个 IFEval 首样本（unedited、p10c、p25c、p50c），
+  和作者逐题结果 400/400 一致；其中 166 个判对，233 个写完了 `</think>`。

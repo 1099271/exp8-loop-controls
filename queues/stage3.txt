@@ -1,0 +1,17 @@
+# E6 IFEval (amendment 4): non-thinking baselines first, then the local thinking reproduction, then the base spot check
+base nothink35_32k ifeval 0/5
+base nothink35_32k ifeval 1/5
+base nothink35_32k ifeval 2/5
+base nothink35_32k ifeval 3/5
+base nothink35_32k ifeval 4/5
+p50c nothink35_32k ifeval 0/5
+p50c nothink35_32k ifeval 1/5
+p50c nothink35_32k ifeval 2/5
+p50c nothink35_32k ifeval 3/5
+p50c nothink35_32k ifeval 4/5
+p50c think35 ifeval 0/5
+p50c think35 ifeval 1/5
+p50c think35 ifeval 2/5
+p50c think35 ifeval 3/5
+p50c think35 ifeval 4/5
+base think35 ifeval 0/5

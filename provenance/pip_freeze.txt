@@ -1,3 +1,4 @@
+absl-py==2.5.1
 agent-detector==2.0.0
 aiohappyeyeballs==2.7.1
 aiohttp==3.14.5
@@ -27,6 +28,7 @@ cuda-python==13.4.4
 cuda-tile==1.7.0
 cuda-toolkit==13.0.3.0
 datasets==5.1.0
+defusedxml==0.7.1
 depyf==0.20.0
 detect-installer==0.2.1
 dill==0.4.1
@@ -56,13 +58,16 @@ huggingface-hub==2.4.0
 humming-kernels==0.1.19
 idna==3.20
 ijson==3.6.0
+immutabledict==4.3.1
 instanttensor==0.2.2
 interegular==0.3.3
 jinja2==3.1.6
 jiter==0.18.0
 jmespath==1.1.0
+joblib==1.6.0
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
+langdetect==1.0.9
 lark==1.2.2
 latex2sympy2-extended==1.11.0
 llguidance==1.7.6
@@ -86,6 +91,7 @@ nccl-extensions==0.1.0
 nccl4py==0.6.0
 networkx==3.7
 ninja==1.13.2
+nltk==3.10.4
 numba==0.65.0
 numpy==2.3.5
 nvidia-cublas==13.1.1.3

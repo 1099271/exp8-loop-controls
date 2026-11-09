@@ -1,0 +1,9 @@
+unedited 100/100 agree
+p10c 100/100 agree
+p25c 100/100 agree
+p50c 100/100 agree
+all 400/400 agree
+unedited samples 100 published correct 20 closed </think> 25
+p10c samples 100 published correct 46 closed </think> 79
+p25c samples 100 published correct 42 closed </think> 57
+p50c samples 100 published correct 58 closed </think> 98

@@ -86,3 +86,34 @@ E3 base 和 p50c 各 100 题（20.8 % / 41.5 %）、E5 rand0 200 题（21.0 %，
 E4 − 作者发布值 = +3.2 [+1.3, +5.1]。本机与 akhaliq 用同样的 vLLM 0.33.0 和多模态发布版，seed 和硬件不同，几乎没有差别；
 两次都比作者发布值高约 3 个点。作者用的是 text-only 导出，vLLM 版本日志里没写。所以这 3 个点也可能来自软件或导出方式的系统差异，
 本实验无法区分。修订 1 第 4 条里 "2.9 个点是运行间波动" 的说法作废；seed 波动的估计以 E4 与 akhaliq 的差为准。
+
+## 修订 4（2026-11-09 18:05 +0800；用户决定补跑 IFEval；计划外补充，单独标注）
+动机：博客摘要写道，这次编辑 "generalizes out of the box to instruction following, raising IFEval by 3x"。作者发布的
+IFEval（thinking 开）：base 21.0 %（cut 74.9 %），p50c 62.3 %（cut 2.2 %）。评分时，thinking 开且没有 `</think>` 的回答
+算空答案。和 MATH-500 一样，缺一个 non-thinking 的 base 基线。用户最初的规则不跑 IFEval，因为作者没发布评分器；
+这次由用户批准改为补跑。
+
+修订时已知：作者发布的 IFEval 分数和逐题结果（上面两行）。本机还没有任何 IFEval 生成结果。
+
+评分器：Google 官方 instruction_following_eval（google-research 提交 0eebfd40，未改动，code/instruction_following_eval/），
+通过 code/weightenv/lmo/tasks/ifevalg.py 接到 evaluate.py 原有的 grade_other（strict、prompt-level，和作者 README 一致）。
+题目来自同一提交的 data/input_data.jsonl（541 题，文件顺序；5 个分片的题号和作者发布的逐题一致）。
+nltk 3.10.4 把 punkt pickle 换成 punkt_tab 读取。验证：用这个评分器重判作者发布的全部首样本
+（4 个模型 × 5 分片 × 20 = 400 个，166 个判对），和作者的逐题结果 400/400 一致（analysis/validate_ifeval_grader.txt）。
+
+待跑配置（IFEval 全量 541 题，5 个分片，每题 2 个样本，和作者一致；队列 queues/stage3.txt，按顺序）：
+| 名称 | 模型 | 协议 | 作用 |
+|---|---|---|---|
+| E6a | base | nothink35_32k | 主问题：不改权重、关掉 thinking，能到多少 |
+| E6b | p50c | nothink35_32k | 编辑在 non-thinking 下有没有帮助或伤害 |
+| E6c | p50c | think35 | 本机复现 62.3（MATH-500 上本机比作者发布值高约 3 点，这里同样要同机比较） |
+| E6d | base | think35，只跑分片 0/5 | 抽查本机能否复现 base 的 21.1 %（同分片发布值） |
+
+预先固定的判定（配对 bootstrap，题目层面，每题 2 样本取平均，10,000 次，seed 0）：
+参照值：p50c thinking，用 E6c（本机）和作者发布值两个参照，并列报告。
+1. base nothink32k − p50c thinking 的 95 % 区间包含 0 或整体在 0 以上：摘要里 "IFEval 3x" 可以完全由
+   "关掉 thinking 就不再循环" 解释，编辑没有超出 base non-thinking 的 IFEval 能力。
+2. 区间整体在 −3 以下：编辑在 IFEval 上的作用不只是打断循环。
+3. 区间在 0 以下但没有整体在 −3 以下：编辑有小幅优势，如实报告大小。
+次要指标：instruction-level strict 准确率（inst_ok / inst_total），只描述，不做判定。
+E6b − E6a 只描述编辑在 non-thinking 下的影响，不参与判定。
