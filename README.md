@@ -5,7 +5,7 @@ Independent reproduction of, and control evaluations for, Experiment 8 ("Weight-
 Qwen3.5-0.8B (64 columns of `mlp.down_proj` in layers 15 and 19, 131,072 weights), reported to raise MATH-500 from
 7.9 % to 48.1 %.
 
-**Status: complete (2026-11-05).** All runs finished on one local RTX 4090; results were committed as they finished, so
+**Status: complete (MATH-500 and GSM8K 2026-11-05; IFEval, E6, 2026-11-09).** All runs finished on one local RTX 4090; results were committed as they finished, so
 the git history is the timeline. The write-up is [`report.md`](report.md) (Chinese).
 
 ## Question
@@ -90,6 +90,32 @@ Key observations (paired differences are over the same 500 problems unless noted
 **E3b (rp 1.05, first 100 problems).** Weaker than rp 1.1: 14.5 % with 85.2 % cut, −6.2 [−10.0, −2.8] against rp 1.1 on the same
 problems.
 
+**E6, IFEval (amendment 4 in `PLAN.md`, added after the main runs, criteria committed before any IFEval generation).**
+The abstract says the edit "generalizes out of the box to instruction following, raising IFEval by 3x" (21.0 → 62.3,
+thinking mode; 74.9 % of base answers hit the cap, and an answer without `</think>` is graded as empty). The authors did
+not publish their IFEval grader, so this uses Google's official `instruction_following_eval` (google-research `0eebfd40`,
+unmodified). Re-grading all 400 published IFEval first samples with it reproduces the published per-problem results
+400/400 (`analysis/validate_ifeval_grader.txt`). 541 problems, 2 samples, strict prompt-level accuracy:
+
+| Config | Model | Protocol | IFEval acc | inst-level | cut | mean tok |
+|---|---|---|---|---|---|---|
+| published | base | think35 | 21.0 [18.2, 23.8] | 18.3 | 74.9 | 25,296 |
+| published | p50c | think35 | 62.3 [58.8, 65.7] | 69.7 | 2.2 | 4,241 |
+| E6c | p50c | think35 (local) | 63.8 [60.3, 67.2] | 71.2 | 2.2 | 4,154 |
+| E6d | base | think35 (local, shard 0/5, 109 problems) | 20.6 [14.2, 27.5] | 19.1 | 73.9 | 25,147 |
+| E6a | base | nothink35_32k | 52.8 [49.1, 56.5] | 63.6 | 0.6 | 444 |
+| E6b | p50c | nothink35_32k | 50.5 [46.8, 54.2] | 61.4 | 0.0 | 252 |
+
+- Base non-thinking − p50c thinking: −11.0 [−14.8, −7.2] (local), −9.5 [−13.4, −5.7] (published). Both intervals lie
+  below −3, so criterion 2 of amendment 4 is met: base non-thinking does not reach p50c thinking on IFEval.
+- Base non-thinking − published base thinking: +31.8 [+27.8, +35.8]. About 32 of the 41 points need no edit, only no
+  thinking; about 10 points remain, as on GSM8K.
+- p50c non-thinking − base non-thinking: −2.3 [−5.0, +0.5]. The edit does not help instruction following without thinking.
+- The comparison cannot separate "the edit adds ability" from "thinking that terminates helps IFEval, and only the edit
+  makes base's thinking terminate here"; E6b gives no support to the first. `report.md` 4.6 narrows the wording of
+  amendment 4's criterion 2 accordingly.
+- E6c − published p50c: +1.5 [−1.4, +4.3]; E6d − published base (same 109 problems): −0.5 [−6.9, +6.0].
+
 ## Layout
 
 | Path | Contents |
@@ -101,6 +127,8 @@ problems.
 | `code/` | copy of `exp8_math/code/` from the source repo, plus `make_random_control.py` and `summarize.py` |
 | `tools/` | job queue runner, queue swap script, vLLM smoke test (`run_queue.sh` at the root is the same file, used by the running queue) |
 | `queues/` | the exact job lists that were run |
+| `code/instruction_following_eval/`, `external/ifeval_official/` | Google's official IFEval checkers and prompts (Apache-2.0), with sha256 |
+| `external/web/`, `external/x/` | snapshots of the blog post, Honnibal's critique and the announcement thread, used to verify quotes |
 | `external/hf_akhaliq_eval/` | akhaliq's re-run scores of p50c from the authors' HF repo (Apache-2.0), with source and hashes |
 | `eval/<model>__<protocol>/` | results in the source repo's format: `parts/<set>_s<i>of<k>/{scores.json, *_per_problem.json, *_first_samples.jsonl}`, `merged.json` |
 | `eval/summary.json` | output of `code/summarize.py` (merged scores and bootstrap intervals) |
@@ -145,4 +173,5 @@ Check weights and benchmark files with `sha256sum` against `provenance/hashes.tx
 - Results, logs and documents are derived from CC BY 4.0 material of the same repository (commit `4d09ba6`) and are
   released under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 - Problem texts quoted in `*_first_samples.jsonl` come from MATH (MIT) and GSM8K (MIT) and stay under their licenses.
+- `code/instruction_following_eval/` and `external/ifeval_official/input_data.jsonl` are from google-research (Apache-2.0, see the LICENSE file there).
 - Model: [Qwen/Qwen3.5-0.8B](https://huggingface.co/Qwen/Qwen3.5-0.8B) (Apache-2.0); no weights are redistributed.

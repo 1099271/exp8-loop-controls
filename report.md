@@ -3,7 +3,7 @@
 对象：[RikiyaT/lm_understand-logs](https://github.com/RikiyaT/lm_understand-logs)（提交 4d09ba6）exp8_math 的 p50c 编辑：
 Qwen3.5-0.8B 第 15、19 层 `mlp.down_proj` 各 64 列，共 131,072 个权重，作者发布 MATH-500 从 7.9 % 升到 48.1 %。
 
-完成时间：2026-11-05。硬件：一张 RTX 4090（WSL2）。表格和配对差由 `analysis/final_tables.py` 从 `eval/` 算出（输出见 `analysis/final_tables.txt`），首样本分析和重叠分析见
+完成时间：2026-11-05（MATH-500、GSM8K）；IFEval 补跑（E6，PLAN 修订 4）2026-11-09。硬件：一张 RTX 4090（WSL2）。表格和配对差由 `analysis/final_tables.py` 从 `eval/` 算出（输出见 `analysis/final_tables.txt`），首样本分析和重叠分析见
 `analysis/overlap_and_cut.txt`，Gemma 数字来自原仓库的 `merged.json`。
 
 ## 1. 结论
@@ -23,7 +23,12 @@ model finish answers it could already work out."；讲 IFEval 时也写了 "The 
 math improved as well"。所以这份报告是**补充而不是反驳**。博客全文没有提到 non-thinking，
 也没有采样调整或随机方向这类对照，这些是本报告新增的内容。摘要和正文的措辞不同，见 4.4。
 
-**有一个例外：GSM8K。** p50c thinking（67.1 %，作者发布）比 base non-thinking 32k（56.9 %）高 10.2 [+8.1, +12.3]，token 上限解释不了。
+**有两个例外：GSM8K 和 IFEval。** 这两项上，p50c thinking 比 base non-thinking 32k 高约 10 个点，token 上限解释不了：
+- GSM8K：67.1 %（作者发布）对 56.9 %，差 +10.2 [+8.1, +12.3]。
+- IFEval：63.8 %（本机）对 52.8 %，差 +11.0 [+7.2, +14.8]；用作者发布的 62.3 % 算是 +9.5 [+5.7, +13.4]。
+
+所以摘要里 "IFEval 3 倍"（21.0 → 62.3）可以拆成两段：约 32 个点只要关掉 thinking 就能拿到，剩下约 10 个点要靠
+"thinking 能正常结束"，而这次试过的办法里只有 p50c 做到了这一点。编辑放到 non-thinking 下对 IFEval 没有帮助（−2.3 [−5.0, +0.5]）。
 
 ## 2. 结果总表
 
@@ -51,6 +56,17 @@ math improved as well"。所以这份报告是**补充而不是反驳**。博客
 
 \* 看到 E1b 的 MATH-500 结果之后才加的事后补充（PLAN 修订 2）。
 
+IFEval（E6，PLAN 修订 4，计划外补充，用户批准）：541 题，每题 2 个样本，strict prompt-level 准确率，Google 官方评分器。
+
+| 实验 | 模型 | 模式 | IFEval acc | instruction-level | cut % | 平均 token |
+|---|---|---|---|---|---|---|
+| 作者发布 | base | thinking，t=0.6 | 21.0 [18.2, 23.8] | 18.3 | 74.9 | 25,296 |
+| 作者发布 | p50c | thinking，t=0.6 | 62.3 [58.8, 65.7] | 69.7 | 2.2 | 4,241 |
+| **E6c** | p50c | thinking，t=0.6（本机） | **63.8 [60.3, 67.2]** | 71.2 | 2.2 | 4,154 |
+| E6d | base | thinking，t=0.6，shard 0/5（本机） | 20.6 [14.2, 27.5] | 19.1 | 73.9 | 25,147 |
+| **E6a** | base | non-thinking，32k | **52.8 [49.1, 56.5]** | 63.6 | 0.6 | 444 |
+| E6b | p50c | non-thinking，32k | 50.5 [46.8, 54.2] | 61.4 | 0.0 | 252 |
+
 ## 3. 每项一句结论
 
 配对差是同一批题上的差值，单位是百分点。
@@ -63,6 +79,11 @@ math improved as well"。所以这份报告是**补充而不是反驳**。博客
 - **E3（rp 1.1）：** base 只到 23.3 %，cut 75.0 %；p50c 降到 42.8 %（与 E4 差 −8.6 [−10.7, −6.4]）。
 - **E3b（rp 1.05，100 题）：** 惩罚更弱，效果更差：14.5 %，cut 85.2 %，比同批题上的 rp 1.1 低 −6.2 [−10.0, −2.8]。
 - **E4（p50c 换 seed）：** 51.3 %。和 akhaliq 没有差别（+0.3 [−1.6, +2.2]），但比作者发布值高（+3.2 [+1.3, +5.1]）。
+- **E6a（IFEval，base non-thinking）：** 52.8 %，比作者发布的 base thinking（21.0 %）高 +31.8 [+27.8, +35.8]，但比 p50c thinking 低：
+  本机 −11.0 [−14.8, −7.2]，作者发布 −9.5 [−13.4, −5.7]。
+- **E6b（IFEval，p50c non-thinking）：** 50.5 %，和 base non-thinking 差 −2.3 [−5.0, +0.5]，编辑在 non-thinking 下没有帮助。
+- **E6c（IFEval，本机 p50c thinking）：** 63.8 %，和作者发布值差 +1.5 [−1.4, +4.3]，复现了 62.3。
+- **E6d（IFEval，本机 base thinking 抽查）：** 109 题上 20.6 %，cut 73.9 %；作者同分片 21.1 %，配对差 −0.5 [−6.9, +6.0]，复现了作者的起点。
 - **E5 / E5b（随机方向）：** 同列、同范数的两个随机方向差别很大（rand0 比 rand1 高 +12.6 [+10.4, +14.8]），都远低于 p50c（E4 比它们高 +28.0 [+25.2, +30.9] 和 +40.6 [+37.5, +43.7]）。
 
 ## 4. 回答开头的问题
@@ -101,9 +122,9 @@ math improved as well"。所以这份报告是**补充而不是反驳**。博客
 - p50c 的效果对采样设置敏感。
 
 **不能说：**
-- "作者挑了对自己有利的温度"：0.6 是模型卡 thinking 测评表的设置，1.0 是模型卡对文本任务的通用推荐，两个都出自模型卡。
+- "作者挑了对自己有利的温度"：0.6 是模型卡测评时 thinking 模式的设置，1.0 是模型卡对 thinking 模式文本任务的推荐设置，两个都出自模型卡。
 - "Astra 在 0.6 下练习，所以 p50c 只在 0.6 下有效"：这个因果关系没有测试过。
-- "编辑毫无价值"：它在 thinking 模式下确实有效，GSM8K 上也有 non-thinking 拿不到的分数。
+- "编辑毫无价值"：它在 thinking 模式下确实有效，GSM8K 和 IFEval 上也有 non-thinking 拿不到的约 10 个点。
 - "base 和 p50c 一样好"：两者的分数差异不显著，但逐题相关只有 0.72（同一模型两次运行是 0.86），答对的题并不完全相同。
 
 ### 4.4 摘要和正文的措辞
@@ -151,6 +172,33 @@ misleading"（<https://honnibal.dev/blog/astra-read-write-misleading>，2026-11-
 本报告只核对了他表格第 8 行的两项：作者日志里 p50c 的运行有 80 次 Python 调用、69 次前向调用，和 "Python: Yes / Runs network: Yes" 一致。
 其余行没有核对。
 
+### 4.6 IFEval（E6，PLAN 修订 4）
+
+问题：摘要里 "generalizes out of the box to instruction following, raising IFEval by 3x"，有多少可以用 "关掉 thinking" 得到。
+
+| 比较（IFEval，541 题） | 配对差 [95 %] |
+|---|---|
+| base non-thinking − 本机 p50c thinking（E6a − E6c） | −11.0 [−14.8, −7.2] |
+| base non-thinking − 作者发布 p50c thinking | −9.5 [−13.4, −5.7] |
+| base non-thinking − 作者发布 base thinking | +31.8 [+27.8, +35.8] |
+| p50c non-thinking − base non-thinking（E6b − E6a） | −2.3 [−5.0, +0.5] |
+| 本机 p50c thinking − 作者发布 p50c thinking | +1.5 [−1.4, +4.3] |
+
+**对照预先固定的判定：** 两个参照下，区间都整体在 −3 以下，满足修订 4 的标准 2。
+
+**这个结果能说明什么：**
+- 41 个点的提升里，约 32 个点不用改权重，关掉 thinking 就能拿到。
+- 剩下约 10 个点，需要 thinking 能正常写完。这次试过的办法里只有 p50c 做到了。GSM8K 是同样的情况（+10.2）。
+- 编辑本身没有让 non-thinking 的指令遵循变好（E6b − E6a = −2.3，不显著）。
+
+**修订 4 里标准 2 的措辞要收窄。** 当时写的是 "编辑在 IFEval 上的作用不只是打断循环"。实际上这个比较分不开两种解释：
+(a) 编辑给了模型新的指令遵循能力；(b) 循环修好以后，thinking 本身对 IFEval 有帮助，而 base 没有循环时的 thinking 拿不到。
+E6b 不支持 (a)，因为编辑放到 non-thinking 下没有提升。要区分 (a) 和 (b)，需要另一种能让 base 的 thinking 正常结束的办法，
+这次没有找到（E2、E3、E5 的 cut 都在 75 % 以上）。
+
+**和 MATH-500 的不同：** MATH-500 上 base non-thinking 追平了 p50c thinking；IFEval 和 GSM8K 上没有追平。
+所以 "提升全部来自换个模式就能拿到的分数" 只对 MATH-500 成立。
+
 ## 5. 哪些结论样本量或设计不够
 
 - **随机方向只有 2 个。** 两者差 12.6 个点，说不出随机方向的典型水平或分布。可以说 "这两个都远低于 p50c"，不能说 "随机方向一般能拿到多少"。
@@ -166,12 +214,17 @@ misleading"（<https://honnibal.dev/blog/astra-read-write-misleading>，2026-11-
 - **首样本分析样本小且是近似判断。** 作者只发布了每个分片前 20 题的首样本全文（每个配置 200 条，README 写的是 "每道题"）。
   按有没有 `</think>` 近似判断是否写完：base 写完的 13 条 MATH-500 全部答对，p50c 写完的 152 条答对 60.5 %；这很可能是选择效应（base 只写得完简单题）。
   被截断回答对分数贡献很小（base 的正确回答里约 13 %，p50c 是 0）。
-- **推文原文没有核对。** 本机读不到 X 的内容，发评论前要核对它的具体措辞。
+- **IFEval 的 base thinking 本机只抽查了 1 个分片（109 题），** 21.0 这个起点主要来自作者的环境。
+- **IFEval 两种模式的比较有同样的局限：** temperature 和 top_p 不同；而且 thinking 的答案只算 `</think>` 之后的部分。
+- **推文原文（2026-11-09 读取，`external/x/thread_2026-11-09.md`）：** 首条写的是 "improving math up to 6x and even
+  instruction following 3x"，5/6 写的是 "Fixing these loops by editing just 0.016% of weights boosted other capabilities beyond math too!"。
 
 ## 6. 和原计划的差异
 
 - **E1b 是计划外新增的。** 因为 E1 里 30 % 的回答撞到 8k 上限，所以补了一组 32k。这项写进了预注册计划。
 - **GSM8K 的 E1b 是事后补充**（修订 2），其他 thinking 配置没有跑 GSM8K。
+- **IFEval（E6）是计划外补充**（修订 4）。用户最初的规则不跑 IFEval，因为作者没发布评分器。读了 Honnibal 的评论和博客摘要后，
+  用户批准补跑。评分器用 Google 官方代码，先用作者发布的 400 个样本验证（400/400 一致），再跑生成。判定标准在出结果前推到 GitHub。
 - **E3b 缩减为 base 的 1 个分片，新增 E5b（rand1）**（修订 3，用户决定）。
 - **E4 用 seed 1000 而不是 1：** vLLM 给 n 个样本的 seed 是 seed+i，seed 1 会和 seed 0 重用三组随机数流。
 - **vLLM 用 0.33.0。** 没查到确切的最低支持版本，装了当时的最新稳定版，并确认架构已注册。
@@ -197,7 +250,10 @@ misleading"（<https://honnibal.dev/blog/astra-read-write-misleading>，2026-11-
 ## 8. 文件
 
 - `eval/<模型>__<协议>/parts/<集合>_s<i>of<k>/`：每个配置的 `scores.json`、`*_per_problem.json`、`*_first_samples.jsonl`，格式同原仓库；`merged.json` 由 `code/merge.py` 合并。
-- `analysis/`：`final_tables.py`（总表和配对差）、`overlap_and_cut.py`（逐题重叠、截断计分）。
+- `analysis/`：`final_tables.py`（总表和配对差，含 IFEval）、`overlap_and_cut.py`（逐题重叠、截断计分）、
+  `validate_ifeval_grader.py`（IFEval 评分器对作者发布样本的验证）。
+- `code/instruction_following_eval/`、`external/ifeval_official/`：Google 官方 IFEval 评分器和题目（Apache-2.0），附 sha256。
+- `external/x/thread_2026-11-09.md`：原推文 thread 的文本快照。
 - `external/hf_akhaliq_eval/`：akhaliq 重跑的分数文件（Apache-2.0），附来源和哈希。
 - `external/web/`：博客和 Honnibal 评论的页面存档（HTML 和提取出的纯文本）。
 - `provenance/`：系统和包版本、权重与题库的 sha256、p50c / rand0 / rand1 的构建日志。
