@@ -6,5 +6,13 @@
   "problems": 50,
   "complete": false,
   "acc_lenient": 0.51
+ },
+ "ifeval": {
+  "acc": 0.6330275229357798,
+  "cut_share": 0.01834862385321101,
+  "mean_tokens": 4043.4266055045873,
+  "problems": 109,
+  "complete": false,
+  "acc_lenient": 0.6330275229357798
  }
 }
