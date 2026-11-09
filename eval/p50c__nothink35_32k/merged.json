@@ -16,11 +16,11 @@
   "acc_lenient": 0.5489006823351024
  },
  "ifeval": {
-  "acc": 0.5080831408775982,
+  "acc": 0.5046210720887245,
   "cut_share": 0.0,
-  "mean_tokens": 261.6547344110854,
-  "problems": 433,
-  "complete": false,
-  "acc_lenient": 0.5080831408775982
+  "mean_tokens": 252.07763401109057,
+  "problems": 541,
+  "complete": true,
+  "acc_lenient": 0.5046210720887245
  }
 }
