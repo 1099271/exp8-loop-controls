@@ -18,9 +18,10 @@ Qwen3.5-0.8B 第 15、19 层 `mlp.down_proj` 各 64 列，共 131,072 个权重�
   调温度、加重复惩罚只到 18–23 %；p50c 比它们高 28–41 个点。
 - **这两点不矛盾。** 能绕开循环的办法确实能拿到差不多的分，但这次试过的办法里，只有 p50c 能在 thinking 模式内部做到。
 
-**作者已经说过提升来自循环。** 博客原文："Fixing loops, however, is not the same as making a model better at math: it lets the
-model finish answers it could already work out."。所以这份报告是**补充而不是反驳**。博客全文没有提到 non-thinking，
-也没有采样调整或随机方向这类对照，这些是本报告新增的内容。
+**作者已经说过提升来自循环。** 博客正文写道："Fixing loops, however, is not the same as making a model better at math: it lets the
+model finish answers it could already work out."；讲 IFEval 时也写了 "The loops are not special to math, so performance beyond
+math improved as well"。所以这份报告是**补充而不是反驳**。博客全文没有提到 non-thinking，
+也没有采样调整或随机方向这类对照，这些是本报告新增的内容。摘要和正文的措辞不同，见 4.4。
 
 **有一个例外：GSM8K。** p50c thinking（67.1 %，作者发布）比 base non-thinking 32k（56.9 %）高 10.2 [+8.1, +12.3]，token 上限解释不了。
 
@@ -105,6 +106,51 @@ model finish answers it could already work out."。所以这份报告是**补充
 - "编辑毫无价值"：它在 thinking 模式下确实有效，GSM8K 上也有 non-thinking 拿不到的分数。
 - "base 和 p50c 一样好"：两者的分数差异不显著，但逐题相关只有 0.72（同一模型两次运行是 0.86），答对的题并不完全相同。
 
+### 4.4 摘要和正文的措辞
+
+博客摘要原文（2026-11-09 下载的页面，`external/web/`）：
+
+> Astra identifies an issue in its weights causing reasoning loops that Qwen's own model card warns about, and fixes this by
+> natively editing 0.016% of the weights. With the same sampling settings, this weight correction raises MATH-500 from 7.9% to
+> 48.1% and generalizes out of the box to instruction following, raising IFEval by 3x.
+
+| 内容 | 摘要 | 正文 |
+|---|---|---|
+| 提升和循环有关 | 写了（"causing reasoning loops"） | 写了 |
+| 修好循环不等于数学变强 | 没写 | 写了（Gemma 一节开头："Fixing loops, however, is not the same as making a model better at math"） |
+| IFEval 的提升 | "generalizes out of the box to instruction following" | "The loops are not special to math, so performance beyond math improved as well" |
+| non-thinking 基线 | 没写 | 没写 |
+
+- **"With the same sampling settings" 本身没有问题。** base 和 p50c 确实用了同一套设置。本报告补的是换设置之后的结果
+  （温度 1.0 时 p50c 降到 28.0 %），不能说这句话本身有误导。
+- **差别在 "generalizes" 这个词。** 正文把 IFEval 的提升归因到循环，摘要写成了 "泛化到指令遵循"。
+  IFEval 的 non-thinking 基线见第 4.6 节（E6）。
+- **摘要只读一遍容易得出的印象**，是编辑让模型的数学和指令遵循能力变强了。正文和本报告的数据都不支持这个印象。
+
+### 4.5 和 Honnibal 评论的关系
+
+Matthew Honnibal（spaCy 作者）2026-11-03 发了一篇评论，标题是 "The 'Astra can read and write weights to improve Qwen' post is
+misleading"（<https://honnibal.dev/blog/astra-read-write-misleading>，2026-11-09 下载的页面在 `external/web/`）。
+
+他的观点：
+- 摘要开头是 "Just by looking at the raw weights"，但只有实验 1、2、4 是只看原始权重（不用 Python、不运行网络，1.7 万–17.2 万个权重）。
+- 实验 8 要写 Python，还能 "run the model on up to 50 batches of practice problems"。
+- 所以实验 8 说明的是 "Astra can be prompted to devise and perform tasks that a human ML engineer could do"。他也承认
+  "AI models of a year or two ago would have failed at all these tasks"。
+- 用 Python 的实验 "don't belong in the same post or paper" 和只读权重的实验放在一起，因为 "it's not a single technique"。
+
+他没有重跑实验，也没有质疑任何数字；没有提到 non-thinking、采样设置或随机方向。
+
+| | Honnibal | 本报告 |
+|---|---|---|
+| 问的问题 | 这些实验能不能说明同一种能力 | 实验 8 的提升相对什么基线，是否依赖这个方向 |
+| 方法 | 按博客自己报告的设置重新分类 | 在本机实测 |
+| 对实验 8 的结论 | 是工程师式的工作流（Python + 运行模型） | 最终分数不超过 base non-thinking；方向在 thinking 模式下是特殊的 |
+
+两者**互补，不冲突**。"方向特殊" 对作者有利，Honnibal 的文章也没有否认这一点。
+本报告只核对了他表格第 8 行的两项：作者日志里 p50c 的运行有 80 次 Python 调用、69 次前向调用，和 "Python: Yes / Runs network: Yes" 一致。
+其余行没有核对。
+
 ## 5. 哪些结论样本量或设计不够
 
 - **随机方向只有 2 个。** 两者差 12.6 个点，说不出随机方向的典型水平或分布。可以说 "这两个都远低于 p50c"，不能说 "随机方向一般能拿到多少"。
@@ -146,19 +192,21 @@ model finish answers it could already work out."。所以这份报告是**补充
 | rp 1.1 对 p50c 影响不大 | 这是 100 题时的判断，全量差异显著 |
 | 随机方向能拿回约三分之一的提升 | 只对 rand0 成立，rand1 几乎没有效果 |
 | 标准 4 下 "方向特殊" 成立 | 只有 rand1 符合；这是配对差值下的判断 |
-| 把提升来自循环当成新发现 | 作者的博客已经这样写了 |
+| 把提升来自循环当成新发现 | 作者的博客正文已经这样写了；摘要只提到循环，没有 "Fixing loops..." 这句限定（见 4.4） |
 
 ## 8. 文件
 
 - `eval/<模型>__<协议>/parts/<集合>_s<i>of<k>/`：每个配置的 `scores.json`、`*_per_problem.json`、`*_first_samples.jsonl`，格式同原仓库；`merged.json` 由 `code/merge.py` 合并。
 - `analysis/`：`final_tables.py`（总表和配对差）、`overlap_and_cut.py`（逐题重叠、截断计分）。
 - `external/hf_akhaliq_eval/`：akhaliq 重跑的分数文件（Apache-2.0），附来源和哈希。
+- `external/web/`：博客和 Honnibal 评论的页面存档（HTML 和提取出的纯文本）。
 - `provenance/`：系统和包版本、权重与题库的 sha256、p50c / rand0 / rand1 的构建日志。
 - `logs/`、`queues/`：每个任务的完整日志和实际运行的队列。
 
 ## 9. 来源
 
-- 博客：<https://rikiyat.github.io/blog/weight-space-programming/>（原文引用已对照 2026-11-04 下载的页面文本）
+- 博客：<https://rikiyat.github.io/blog/weight-space-programming/>（原文引用已对照 2026-11-04 和 2026-11-09 下载的页面文本；2026-11-09 的页面存在 `external/web/`，sha256 a326bc5b…）
+- Honnibal 的评论：<https://honnibal.dev/blog/astra-read-write-misleading>（2026-11-03；页面存在 `external/web/`，sha256 06362124…）
 - 日志仓库：<https://github.com/RikiyaT/lm_understand-logs>（提交 4d09ba6）
 - HF checkpoint 与 akhaliq 重跑：<https://huggingface.co/RikiyaT/Qwen3.5-0.8B-weight-space-programming>
 - Qwen 模型卡：<https://huggingface.co/Qwen/Qwen3.5-0.8B>
