@@ -14,7 +14,7 @@ while true; do
     .venv/bin/python code/summarize.py eval /home/www/workspace/github/lm_understand-logs/exp8_math/eval > /dev/null 2>&1
     flock /tmp/exp8-git.lock bash -c "
       git add eval logs queues PLAN.md 2>/dev/null
-      git diff --cached --quiet || git -c user.name=Ryan -c user.email=cc-team-2@nex.ad commit -q -m \"$msg
+      git diff --cached --quiet || git commit -q -m \"$msg
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>\"
       tools/push.sh 2>&1 | tail -2" && echo "$(date '+%F %T') ok: $msg"

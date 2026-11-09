@@ -6,7 +6,7 @@ import numpy as np
 W = "/home/www/workspace/mathedit/"
 P = "/home/www/workspace/github/lm_understand-logs/exp8_math/eval/"
 CFG = {"base think35 t0.6 (pub)": (P + "unedited", "pub"), "p50c think35 t0.6 (pub)": (P + "p50c", "pub"),
-       "E0 base think35 (shard 0/10)": (W + "eval/base__think35", ""), "E0 p50c think35 (shard 0/10)": (W + "eval/p50c__think35", ""),
+       "local base think35 (E0 math 0/10, E6d ifeval 0/5)": (W + "eval/base__think35", ""), "local p50c think35 (E0 math 0/10, E6c ifeval)": (W + "eval/p50c__think35", ""),
        "E1 base nothink 8k": (W + "eval/base__nothink35", ""), "E1 p50c nothink 8k": (W + "eval/p50c__nothink35", ""),
        "E1b base nothink 32k": (W + "eval/base__nothink35_32k", ""), "E1b p50c nothink 32k": (W + "eval/p50c__nothink35_32k", ""),
        "E2 base t1.0": (W + "eval/base__think35_t10", ""), "E2 p50c t1.0": (W + "eval/p50c__think35_t10", ""),
@@ -25,12 +25,12 @@ def pp(d, s):
 
 
 def agg(d, s):
-    a = {"ok": 0, "total": 0, "cut": 0, "tokens_sum": 0, "n": 0}
+    a = {"ok": 0, "total": 0, "cut": 0, "tokens_sum": 0, "n": 0, "inst_ok": 0, "inst_total": 0}
     for f in glob.glob(f"{d}/parts/{s}_*/scores.json"):
         v = json.load(open(f)).get(s)
         if v:
-            for k in ("ok", "total", "cut", "tokens_sum"):
-                a[k] += v[k]
+            for k in ("ok", "total", "cut", "tokens_sum", "inst_ok", "inst_total"):
+                a[k] += v.get(k, 0)
             a["n"] += v["n_problems"]
     return a
 
@@ -41,7 +41,7 @@ def boot(x):
 
 
 D = {}
-for s in ("math500", "gsm8k"):
+for s in ("math500", "gsm8k", "ifeval"):
     print(f"== {s}: config | acc [95 %] | cut | mean tokens | problems (checks)")
     for k, (d, _) in CFG.items():
         a = agg(d, s)
@@ -51,7 +51,8 @@ for s in ("math500", "gsm8k"):
         assert n == a["total"] and len(x) == a["n"], k
         assert abs(sum(x.values()) * a["total"] / len(x) - a["ok"]) < 1e-6, k
         m, lo, hi = boot(list(x.values()))
-        print(f"{k:30s} {m:5.1f} [{lo:4.1f},{hi:4.1f}] {100*a['cut']/a['total']:5.1f} {a['tokens_sum']/a['total']:8.0f} {a['n']:5d}")
+        print(f"{k:30s} {m:5.1f} [{lo:4.1f},{hi:4.1f}] {100*a['cut']/a['total']:5.1f} {a['tokens_sum']/a['total']:8.0f} {a['n']:5d}"
+              + (f"  inst-level {100*a['inst_ok']/a['inst_total']:.1f}" if a['inst_total'] else ""))
 ak = {p["id"]: np.mean(p["correct"]) for p in json.load(open(W + "external/hf_akhaliq_eval/scores_edited_math500.json"))["per_problem"]}
 D[("akhaliq p50c", "math500")] = ak
 
@@ -75,3 +76,9 @@ for a, b in [(E4, BN), ("p50c think35 t0.6 (pub)", BN), ("akhaliq p50c", BN), (E
 print("== paired, GSM8K")
 for a, b in [("p50c think35 t0.6 (pub)", BN), ("p50c think35 t0.6 (pub)", PN), (PN, BN), ("E1 p50c nothink 8k", "E1 base nothink 8k"), (BN, "E1 base nothink 8k")]:
     pr(a, b, "gsm8k")
+print("== paired, IFEval (E6, amendment 4)")
+LB, LP = "local base think35 (E0 math 0/10, E6d ifeval 0/5)", "local p50c think35 (E0 math 0/10, E6c ifeval)"
+for a, b in [(BN, "p50c think35 t0.6 (pub)"), (BN, LP), (PN, BN), (LP, "p50c think35 t0.6 (pub)"), ("p50c think35 t0.6 (pub)", "base think35 t0.6 (pub)"),
+             (BN, "base think35 t0.6 (pub)"), (LB, "base think35 t0.6 (pub)"), (PN, LP)]:
+    if (a, "ifeval") in D and (b, "ifeval") in D:
+        pr(a, b, "ifeval")
