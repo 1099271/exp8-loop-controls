@@ -1,5 +1,7 @@
 # Weight-Space Programming 实验 8 的复现与对照评测
 
+> Blog: <https://damien.life/blog/weight-space-programming-controls>
+
 对象：[RikiyaT/lm_understand-logs](https://github.com/RikiyaT/lm_understand-logs)（提交 4d09ba6）exp8_math 的 p50c 编辑：
 Qwen3.5-0.8B 第 15、19 层 `mlp.down_proj` 各 64 列，共 131,072 个权重，作者发布 MATH-500 从 7.9 % 升到 48.1 %。
 
