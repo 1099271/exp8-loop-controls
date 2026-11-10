@@ -149,6 +149,14 @@ IFEval（E6，PLAN 修订 4，计划外补充，用户批准）：541 题，每�
 - **差别在 "generalizes" 这个词。** 正文把 IFEval 的提升归因到循环，摘要写成了 "泛化到指令遵循"。
   IFEval 的 non-thinking 基线见第 4.6 节（E6）。
 - **摘要只读一遍容易得出的印象**，是编辑让模型的数学和指令遵循能力变强了。正文和本报告的数据都不支持这个印象。
+- **作者公开的代码注释里记着 non-thinking 的情况（2026-11-10 补充）。** 原仓库 `exp8_math/code/profiles.py` 的 `qwen35` 配置是
+  `"thinking": False`，注释写的是："thinking OFF (2026-10-23): with thinking on, the 0.8B looped ("Wait, let's check ...") and 92 % of
+  MATH-500 answers hit 32,768 tokens (MATH-500 9.3 %); the model card: "Qwen3.5-0.8B operates in non-thinking mode by default""。
+  同一文件另一段注释写的是 "the unedited model read 55.5 % and 50.8 % in two 128-answer passes"。这段没有写明模式；
+  thinking 下原模型在练习题上只有约 10 %（Astra 第 1 次前向 11/96），所以这两个读数应该来自 non-thinking。练习题不是 MATH-500，
+  不能和本报告的 49.9 % 直接比，只能说量级一致。博客用的是另一个配置 `qwen35think`（thinking 开）。发布的结果里没有 non-thinking 的行。
+- **Astra 自己的笔记（`exp8_math/runs/p50c/work_notes/final_report.md`）也是这个口径：** "Targeted repetition, not math facts"，
+  "These are held-out PRACTICE results, not unseen benchmark scores"。它在练习题上做过范数匹配的随机方向对照：14/128 → 16/128。
 
 ### 4.5 和 Honnibal 评论的关系
 

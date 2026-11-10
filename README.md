@@ -24,7 +24,12 @@ Results already known at that time are listed there separately and are not treat
 The [blog post](https://rikiyat.github.io/blog/weight-space-programming/) attributes the gain to loops, in its own words:
 "Fixing loops, however, is not the same as making a model better at math: it lets the model finish answers it could
 already work out." Its Gemma follow-up reports that Astra could not improve a model that rarely loops. The post does not
-mention non-thinking mode (no occurrence of "non-thinking", "thinking mode" or "default" in the page text, 2026-11-04). This
+mention non-thinking mode (no occurrence of "non-thinking", "thinking mode" or "default" in the page text, 2026-11-04). The authors' published code does record the non-thinking case: in `exp8_math/code/profiles.py` the `qwen35` profile has
+`"thinking": False` with the comment "with thinking on, the 0.8B looped ... and 92 % of MATH-500 answers hit 32,768 tokens
+(MATH-500 9.3 %); the model card: "Qwen3.5-0.8B operates in non-thinking mode by default"", and another comment notes
+"the unedited model read 55.5 % and 50.8 % in two 128-answer passes" (practice problems; mode not stated, but the unedited
+model reads about 10 % on practice problems with thinking on). The post's runs use the separate `qwen35think` profile, and
+no non-thinking row is in the published results. This
 repository adds measurements to that account; it does not dispute it.
 
 ## Results
